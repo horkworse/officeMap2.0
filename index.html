@@ -1,26 +1,28 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" >
+<html ng-app="MapApp">
 <head>
     <title>Office map</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/19.2.6/css/dx.common.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/19.2.6/css/dx.light.css" />
-    <script>window.jQuery || document.write(decodeURIComponent('%3Cscript src="js/jquery.min.js"%3E%3C/script%3E'))</script>
-    <script>window.angular || document.write(decodeURIComponent('%3Cscript src="js/angular.min.js"%3E%3C\/script%3E'))</script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
-    <script src="https://cdn3.devexpress.com/jslib/19.2.6/js/dx.all.js"></script>
     <!-- users scripts and styles -->
     <link rel="stylesheet" type="text/css" href="styles/style.css" />
-    <script src="scripts/index.js"></script>
-    <script src="scripts/data.js"></script>
 </head>
 <body class="dx-viewport">
-    <div class="demo-container" ng-app="DemoApp" ng-controller="DemoController">
-        <div id="vector-map" dx-vector-map="vectorMapOptions"></div>
-        
-    </div>
+    <nav>
+        <a href="#!main">Main</a>
+        <a href="#!map">Map</a>
+    </nav>
+    <ng-view></ng-view>    
+    <script src="scripts/lib/jquery.min.js"></script>
+    <script src="scripts/lib/angular.min.js"></script>
+    <script src="scripts/lib/angular-route.min.js"></script>
+    <script src="https://cdn3.devexpress.com/jslib/19.2.6/js/dx.all.js"></script>
+    <script src="scripts/index.js"></script>
+    <script src="scripts/controllers/MapController.js"></script>
+    <script src="scripts/controllers/MainContrioller.js"></script>
+    <script src="scripts/data.js"></script>
 </body>
 </html>

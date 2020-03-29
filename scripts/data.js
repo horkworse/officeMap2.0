@@ -1,7 +1,6 @@
 let buildingData = {
     type: "Building",
-    features: [
-        {
+    features: [{
             type: "BuildingBorders",
             geometry: {
                 type: "Polygon",
@@ -42,7 +41,20 @@ let buildingData = {
     ]
 };
 
-// let roomsData = {};
+let tablesData = {
+    type: "tables",
+    features: [{
+        type: "tables",
+        geometry: {
+            type: "Point",
+            coordinates: [20, 20]
+        },
+        properties: {
+            url: 'images/1.png'
+        }
+    }]
+};
+
 
 let roomsData = {
     type: "ad",
