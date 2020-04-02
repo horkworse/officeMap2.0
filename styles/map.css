@@ -1,6 +1,22 @@
 #vector-map {
-    height: 440px;
-    width: 50%;
     display: block;
     margin: 0 auto
+}
+
+.popUp {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.avatar {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+}
+
+.post {
+	color: #ff4464;
+	font-weight: bold;
 }

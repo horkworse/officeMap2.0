@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Апр 02 2020 г., 11:56
+-- Время создания: Апр 03 2020 г., 00:46
 -- Версия сервера: 5.7.20-log
 -- Версия PHP: 7.0.26
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `desks` (
   `id` int(8) UNSIGNED NOT NULL,
-  `image` enum('angled.png','rectangled.png','rectangled.jpg') DEFAULT NULL,
+  `image` enum('angled.png','rectangled.png') DEFAULT NULL,
   `id_floor` int(8) UNSIGNED NOT NULL,
   `id_employee` int(8) UNSIGNED NOT NULL,
   `x` int(10) NOT NULL DEFAULT '0',
@@ -42,7 +42,10 @@ CREATE TABLE `desks` (
 --
 
 INSERT INTO `desks` (`id`, `image`, `id_floor`, `id_employee`, `x`, `y`) VALUES
-(1, 'rectangled.png', 1, 1, 20, 20);
+(1, 'rectangled.png', 1, 1, 25, 20),
+(2, 'angled.png', 1, 2, 25, 0),
+(3, 'rectangled.png', 1, 3, 45, 20),
+(4, 'rectangled.png', 1, 4, 45, 0);
 
 -- --------------------------------------------------------
 
@@ -54,6 +57,7 @@ CREATE TABLE `employees` (
   `id` int(8) UNSIGNED NOT NULL,
   `full_name` varchar(50) NOT NULL COMMENT 'Фамилия, имя, отчество',
   `post` enum('Директор','Программист','Тестировщик','Аналитик') NOT NULL COMMENT 'Должность',
+  `image` varchar(100) NOT NULL DEFAULT '1.jpg',
   `status` enum('Работает','В отпуске','Болеет','Командировка') DEFAULT 'Работает' COMMENT 'Статус работника'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -61,12 +65,12 @@ CREATE TABLE `employees` (
 -- Дамп данных таблицы `employees`
 --
 
-INSERT INTO `employees` (`id`, `full_name`, `post`, `status`) VALUES
-(1, 'Зиновьев Бронислав Анатольевич', 'Программист', 'Работает'),
-(2, 'Лазарев Дональд Викторович', 'Директор', 'В отпуске'),
-(3, 'Устинов Архип Владимирович', 'Аналитик', 'Работает'),
-(4, 'Панов Яков Лукьянович', 'Тестировщик', 'Болеет'),
-(5, 'Мельников Платон Михаилович', 'Программист', 'Болеет');
+INSERT INTO `employees` (`id`, `full_name`, `post`, `image`, `status`) VALUES
+(1, 'Зиновьев Бронислав Анатольевич', 'Программист', '1.jpg', 'Работает'),
+(2, 'Лазарев Дональд Викторович', 'Директор', '1.jpg', 'В отпуске'),
+(3, 'Устинов Архип Владимирович', 'Аналитик', '1.jpg', 'Работает'),
+(4, 'Панов Яков Лукьянович', 'Тестировщик', '1.jpg', 'Болеет'),
+(5, 'Мельников Платон Михаилович', 'Программист', '1.jpg', 'Болеет');
 
 -- --------------------------------------------------------
 
@@ -252,25 +256,6 @@ INSERT INTO `room_coordinates` (`id`, `x`, `y`, `id_room`) VALUES
 (63, 155, -75, 16),
 (64, 155, -30, 16);
 
--- --------------------------------------------------------
-
---
--- Структура таблицы `type_Desks`
---
-
-CREATE TABLE `type_Desks` (
-  `id` int(8) UNSIGNED NOT NULL,
-  `type` varchar(30) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `type_Desks`
---
-
-INSERT INTO `type_Desks` (`id`, `type`) VALUES
-(1, 'Прямой'),
-(2, 'Угловой');
-
 --
 -- Индексы сохранённых таблиц
 --
@@ -317,12 +302,6 @@ ALTER TABLE `room_coordinates`
   ADD KEY `id_rooms` (`id_room`);
 
 --
--- Индексы таблицы `type_Desks`
---
-ALTER TABLE `type_Desks`
-  ADD PRIMARY KEY (`id`);
-
---
 -- AUTO_INCREMENT для сохранённых таблиц
 --
 
@@ -330,7 +309,7 @@ ALTER TABLE `type_Desks`
 -- AUTO_INCREMENT для таблицы `desks`
 --
 ALTER TABLE `desks`
-  MODIFY `id` int(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT для таблицы `employees`
@@ -361,12 +340,6 @@ ALTER TABLE `rooms`
 --
 ALTER TABLE `room_coordinates`
   MODIFY `id` int(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
-
---
--- AUTO_INCREMENT для таблицы `type_Desks`
---
-ALTER TABLE `type_Desks`
-  MODIFY `id` int(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц

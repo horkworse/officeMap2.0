@@ -1,5 +1,4 @@
 "use strict";
-
 let MapApp = angular.module('MapApp', ['dx', 'ngRoute'])
 .config(function ($routeProvider) {
 

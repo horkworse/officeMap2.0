@@ -1,14 +1,10 @@
+"use strict";
 MapApp.controller('MapController', function MapController($scope, $http) {
-
     $http.get('/includes/dataGetter.php?floor')
     .then(x => {
-
-        
-
         let buildingData = {
             features: x.data.floor
         };
-        console.log(buildingData);
 
         let roomsData = {
             features: x.data.rooms
@@ -47,18 +43,36 @@ MapApp.controller('MapController', function MapController($scope, $http) {
                 type: "marker",
                 elementType: "image",
                 dataField: "url",
-                size: 50,
+                size: 60,
                 dataSource: desksData,
-                name: "tables"
+                name: "desks"
             }],
             loadingIndicator: {
                 show: true
             },
             tooltip: {
                 enabled: true,
-                customizeTooltip: function (arg) {
-                    if(arg.layer.name === "rooms")
-                        return { text: "Square: " + arg.attribute("square") + " ft&#178" };
+                contentTemplate: (info, container) => {
+                    if(info.layer.name === "desks") {
+                        let popUp = document.createElement('div');
+                        popUp.className = 'popUp';
+
+                        let avatar = document.createElement('img');
+                        avatar.className = 'avatar';
+                        avatar.src = `/images/users/${info.attribute('avatar')}`;
+
+                        let name = document.createElement('p');
+                        name.innerText = info.attribute('user');
+
+                        let post = document.createElement('span');
+                        post.className = 'post';
+                        post.innerText = info.attribute('post') + ' ';
+
+                        name.prepend(post)
+                        popUp.append(avatar);
+                        popUp.append(name);
+                        container.append(popUp);
+                    }
                 }
             }
         };
