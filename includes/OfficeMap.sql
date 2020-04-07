@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Апр 03 2020 г., 00:46
+-- Время создания: Апр 07 2020 г., 18:00
 -- Версия сервера: 5.7.20-log
 -- Версия PHP: 7.0.26
 
@@ -58,19 +58,21 @@ CREATE TABLE `employees` (
   `full_name` varchar(50) NOT NULL COMMENT 'Фамилия, имя, отчество',
   `post` enum('Директор','Программист','Тестировщик','Аналитик') NOT NULL COMMENT 'Должность',
   `image` varchar(100) NOT NULL DEFAULT '1.jpg',
-  `status` enum('Работает','В отпуске','Болеет','Командировка') DEFAULT 'Работает' COMMENT 'Статус работника'
+  `status` enum('Работает','В отпуске','Болеет','Командировка') DEFAULT 'Работает' COMMENT 'Статус работника',
+  `email` varchar(60) NOT NULL,
+  `password` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `employees`
 --
 
-INSERT INTO `employees` (`id`, `full_name`, `post`, `image`, `status`) VALUES
-(1, 'Зиновьев Бронислав Анатольевич', 'Программист', '1.jpg', 'Работает'),
-(2, 'Лазарев Дональд Викторович', 'Директор', '1.jpg', 'В отпуске'),
-(3, 'Устинов Архип Владимирович', 'Аналитик', '1.jpg', 'Работает'),
-(4, 'Панов Яков Лукьянович', 'Тестировщик', '1.jpg', 'Болеет'),
-(5, 'Мельников Платон Михаилович', 'Программист', '1.jpg', 'Болеет');
+INSERT INTO `employees` (`id`, `full_name`, `post`, `image`, `status`, `email`, `password`) VALUES
+(1, 'Зиновьев Бронислав Анатольевич', 'Программист', '1.jpg', 'Работает', 'aojv@mail.ru', '$2y$10$qCzTSyZNZgbF0E307esJx.XMt6PLre2f2VbiNeaTsl.6b.kvovyK6'),
+(2, 'Лазарев Дональд Викторович', 'Директор', '1.jpg', 'В отпуске', 'kggfpxw@yandex.ru', '$2y$10$qCzTSyZNZgbF0E307esJx.XMt6PLre2f2VbiNeaTsl.6b.kvovyK6'),
+(3, 'Устинов Архип Владимирович', 'Аналитик', '1.jpg', 'Работает', 'oxxv@yandex.ru', '$2y$10$qCzTSyZNZgbF0E307esJx.XMt6PLre2f2VbiNeaTsl.6b.kvovyK6'),
+(4, 'Панов Яков Лукьянович', 'Тестировщик', '1.jpg', 'Болеет', 'f9jxjd14@gmail.com', '$2y$10$qCzTSyZNZgbF0E307esJx.XMt6PLre2f2VbiNeaTsl.6b.kvovyK6'),
+(5, 'Мельников Платон Михаилович', 'Программист', '1.jpg', 'Болеет', 'p24a@mail.ru', '$2y$10$qCzTSyZNZgbF0E307esJx.XMt6PLre2f2VbiNeaTsl.6b.kvovyK6');
 
 -- --------------------------------------------------------
 
