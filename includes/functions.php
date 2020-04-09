@@ -172,4 +172,22 @@
 
         return $result;
     }
+
+    function signIn($pdo, $email, $password) {
+        $check = $pdo->prepare('
+            SELECT *
+            FROM `employees`
+            WHERE `email` = ?;
+        ');
+
+        $check->execute([$email]);
+        $check = $check->fetch(PDO::FETCH_ASSOC);
+        if ( password_verify($password, $check['password'])) {
+            unset($check['password']);
+            return $check;
+        }
+        else {
+            return false;
+        }
+    }
 ?>

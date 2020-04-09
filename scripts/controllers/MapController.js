@@ -1,7 +1,8 @@
 "use strict";
 MapApp.controller('MapController', function MapController($scope, $http) {
-    $http.get('/includes/dataGetter.php?floor')
+    $http.post('/includes/dataGetter.php', {desks: true})
     .then(x => {
+        console.log(x.data);
         let buildingData = {
             features: x.data.floor
         };
@@ -76,5 +77,6 @@ MapApp.controller('MapController', function MapController($scope, $http) {
                 }
             }
         };
+        console.log($scope.vectorMapOptions.layers[2]);
     });
 });

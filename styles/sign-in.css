@@ -1,0 +1,7 @@
+.sign-in-form {
+	width: 300px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 0 auto
+}
