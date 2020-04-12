@@ -1,4 +1,6 @@
 <?php
+
+    session_start();
     require_once 'dbconnect.php';
 
 // вернет массив кординат всех этажей
@@ -173,6 +175,7 @@
         return $result;
     }
 
+// авторизация
     function signIn($pdo, $email, $password) {
         $check = $pdo->prepare('
             SELECT *
@@ -182,8 +185,10 @@
 
         $check->execute([$email]);
         $check = $check->fetch(PDO::FETCH_ASSOC);
+        
         if ( password_verify($password, $check['password'])) {
             unset($check['password']);
+            $_SESSION['user'] = $check;
             return $check;
         }
         else {

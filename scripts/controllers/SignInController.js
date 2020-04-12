@@ -1,10 +1,8 @@
 MapApp.controller('SignInController', function SignInController($scope, $http, $cookies, $location) {
 	
 	$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
-	
-	$scope.email = 'aojv@mail.ru';
-	$scope.password = '123';
-
+	// $scope.email = 'aojv@mail.ru';
+	// $scope.password = '123';
 	$scope.submit = function (email, password) {
 		$http.post(
 			'includes/dataGetter.php', {
@@ -15,18 +13,11 @@ MapApp.controller('SignInController', function SignInController($scope, $http, $
 		)
 		.then(x => {
 			if (x.data) {
-				$cookies.put('user', JSON.stringify(x.data));
+				localStorage.setItem('user', JSON.stringify(x.data));
 				$location.path('/map');
 			}
 			else
 				console.log('error');
-
-			// if (x.data)
-			// 	localStorage.setItem('user', JSON.stringify(x.data));
-			// else
-			// 	console.log('error');
-			// 	console.log(localStorage.getItem('user'));
-
-		})
+		});
 	}
 })
