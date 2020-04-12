@@ -1,6 +1,6 @@
 "use strict";
 let MapApp = angular
-    .module('MapApp', ['dx', 'ngRoute', 'ngCookies'])
+    .module('MapApp', ['dx', 'ngRoute',])
     .config(config)
     .run(run);
 
@@ -20,8 +20,8 @@ function config($routeProvider, $locationProvider) {
         .otherwise({redirectTo: '/map'});
 }
 
-run.$inject = ['$rootScope', '$location', '$cookies', '$http'];
-function run($rootScope, $location, $cookies, $http) {
+run.$inject = ['$rootScope', '$location', '$http'];
+function run($rootScope, $location, $http) {
     $rootScope.$on('$locationChangeStart', function (event, next, current) {
         console.log(localStorage.getItem('user'));
         if (!localStorage.getItem('user'))
