@@ -146,7 +146,7 @@
             return false;
 
         $desks = $pdo->prepare("
-            SELECT `x`, `y`, `desks`.`image` as `image`, `full_name` AS `user`, `employees`.`image` as `avatar`, `post`
+            SELECT `x`, `y`, `desks`.`image` as `image`, CONCAT(`surname`, ' ', `name`, ' ', `patronymic`) AS `user`, `employees`.`image` as `avatar`, `post`
             FROM `employees` INNER JOIN
                 (`desks` INNER JOIN `floors` ON `desks`.`id_floor` = `floors`.`id`)
             ON `employees`.`id` = `desks`.`id_employee`

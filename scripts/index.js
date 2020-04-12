@@ -23,7 +23,6 @@ function config($routeProvider, $locationProvider) {
 run.$inject = ['$rootScope', '$location', '$http'];
 function run($rootScope, $location, $http) {
     $rootScope.$on('$locationChangeStart', function (event, next, current) {
-        console.log(localStorage.getItem('user'));
         if (!localStorage.getItem('user'))
             $location.path('/sign-in');
         else
