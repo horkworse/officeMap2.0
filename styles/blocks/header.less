@@ -1,0 +1,118 @@
+// main: ../main.less
+
+/*Header*/
+.header{
+    padding: 1rem 0;
+
+    background-color: @black;
+    color: @white;
+
+    position: relative;
+
+    z-index: 3;
+}
+
+.header__inner{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/*User*/
+.user{
+    display: flex;
+    cursor: pointer;
+}
+
+.user__avatar{
+    width: 57px;
+    height: 57px;
+
+    // img{
+    //     border-radius: 50%;
+    // }
+}
+
+.user__content{
+    padding-left: 9px;
+}
+
+.user__name{
+    margin-bottom: 3px;
+
+    font-size: 1.06rem;
+    font-weight: 700;
+    line-height: 1.2;
+
+    @media (max-width: 768px){
+        display: none;
+    }
+}
+
+.user__prof{
+    font-size: 0.8rem;
+    color: fade(@white, 70%);
+
+    @media (max-width: 768px){
+        display: none;
+    }
+}
+
+/*Logo*/
+.logo{
+    background-image: @logoUrl;
+    background-size: cover;
+
+    width: @logo-w;
+    height: @logo-h;
+
+    @media (max-width: 992px){
+        display: none;
+    }
+}
+
+/*Search*/
+.search{
+    position: relative;
+    width: 40rem;
+
+    @media (max-width: 650px){
+        width: 75%;
+    }
+}
+
+.search__input{
+    width: 100%;
+    height: 2.8rem;
+    padding-left: 1rem;
+    border: 3px solid @white;
+
+    &:focus{
+        border-color: @black;
+        background: @white;
+    }
+}
+
+.search__input,
+.search__button{
+    outline: none;
+    background: transparent;
+}
+
+.search__button{
+    border: none;
+    height: 2.8rem;
+    width: 2.8rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+
+    &:before{
+        content: "\f002";
+        font-family: FontAwesome;
+        font-size: 1.2rem;
+        color: @white;
+        mix-blend-mode: difference;
+    }
+}

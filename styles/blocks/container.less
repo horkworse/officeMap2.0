@@ -1,0 +1,32 @@
+// main: ../main.less
+
+.container{
+    width: 100%;
+    max-width: inherit;
+    min-width: 320px;
+    margin: 0 auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+
+    @media (max-width: 768px){
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+}
+
+/*For slide content*/
+.content{
+    transition: 0.5s ease-in;
+}
+
+.content-active{
+    transform: translateX(26.6rem);
+
+    // @media (max-width: 768px){
+    //     transform: translateX(30rem);
+    // }
+
+    @media (max-width: 992px){
+        transform: translateX(100%);
+    }
+}

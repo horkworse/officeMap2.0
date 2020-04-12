@@ -1,11 +1,15 @@
-<form class="sign-in-form">
-	<div class="form-group">
-		<label for="exampleInputEmail1">Email address</label>
-		<input type="email" class="form-control" name="email"  placeholder="Email" ng-model="email">
-	</div>
-	<div class="form-group">
-		<label for="password">Password</label>
-		<input type="password" class="form-control" name="password" placeholder="Password"ng-model="password">
-	</div>
-	<button id="sign-in" type="button" class="btn btn-primary" ng-click="submit(email, password)">Sign in</button>
+<form id="signForm" action="">
+    <div class="block">
+        <div class="icon">
+            <img src="images/sign/login.png" alt="">
+        </div>
+        <input type="text" placeholder="Username" class="login">
+    </div>
+    <div class="block">
+        <div class="icon">
+            <img src="images/sign/pass.png" alt="">
+        </div>
+        <input type="password" placeholder="Password" class="login">
+    </div>
+    <input type="button" value="Sign in">
 </form>
