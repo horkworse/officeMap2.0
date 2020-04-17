@@ -1,12 +1,14 @@
 // main: ../main.less
 #signForm {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     width: 35%;
 
     background: fade(@sign, 10%);
 
     padding: 1%;
     border: 2px solid @sign;
+    border-radius: 4px;
 
     z-index: 4;
 
@@ -16,16 +18,37 @@
     margin-right: -50%;
     transform: translate(-50%, -50%);
 
-    @media (max-width: 992px){
-        width: 70%;
-    }
+    animation-name: fade;
+    animation-duration:  0.6s; 
+    animation-timing-function: ease-in-out;     
+    visibility: visible !important;
 
-    @media (max-width: 768px){
+    @media (max-width: 992px){
         width: 100%;
     }
 
     @media (max-width: 360px) {
         padding: 6%;
+    }
+
+    input[type="button"]{
+        background: transparent;
+
+        border: 1px solid @sign;
+        border-radius: 4px;
+        color: @sign;
+        font-size: 2rem;
+        padding: 2% 10%;
+        margin: 0 auto;
+        cursor: pointer;
+    
+        transition: 0.1s;
+        
+        &:hover{
+            background: @sign;
+            color: @white;
+            border: 1px solid @black;
+        }
     }
 }
 
@@ -35,6 +58,16 @@
     align-items: center;
 
     padding-bottom: 3%;
+
+    h1{
+        font-size: 2.8rem;
+        margin: 0 auto;
+        padding-bottom: 1.5%;
+        padding-left: 2%;
+        padding-right: 2%;
+        border-bottom: 1px solid @sign;
+    }
+
 }
 
 #signForm .block .icon {
@@ -43,18 +76,16 @@
     align-items: center; 
     z-index: 6;
 
+    img {
+        width: 110px;
     
-}
-
-#signForm .block .icon img {
-    width: 110px;
-
-    @media (max-width: 768px){
-        width: 90px;
-    }
-
-    @media (max-width: 360px) {
-        display: none;
+        @media (max-width: 768px){
+            width: 90px;
+        }
+    
+        @media (max-width: 360px) {
+            display: none;
+        }
     }
 }
 
@@ -63,12 +94,17 @@
     width: 100%;
     height: 3rem;
     color: @black;
+
     border: 2px solid @sign;
+    border-radius: 4px;
+
     font-size: 1.2rem;
+
     padding-left: 90px;
-    background: transparent;
     margin-left: -70px;
 
+    background: transparent;
+    
     @media (max-width: 768px){
         margin-left: -60px; 
     }
@@ -80,20 +116,11 @@
     }
 }
 
-#signForm input[type="button"] {
-    background: transparent;
-
-    border: 1px solid @sign;
-    color: @black;
-    font-size: 2rem;
-    padding: 2% 4%;
-    margin: 0 auto;
-    cursor: pointer;
-
-    transition: 0.1s;
-    
-    &:hover{
-        background: @sign;
-        color: @white;
-    }
+@keyframes fade {
+    0% {
+        opacity: 0;    
+    } 
+    100% {
+        opacity: 1; 
+    }       
 }

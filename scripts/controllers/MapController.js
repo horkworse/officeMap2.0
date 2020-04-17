@@ -1,5 +1,5 @@
 "use strict";
-MapApp.controller('MapController', function MapController($scope, $http) {
+MapApp.controller('MapController', function MapController($scope, $http, $location) {
 
     let slide = () =>{
         let user = document.querySelector('.user');
@@ -22,6 +22,7 @@ MapApp.controller('MapController', function MapController($scope, $http) {
         }); 
     }
     slide();
+
     function slideFunction(sideBar, slideLinks) {
         sideBar.classList.toggle('sideBar-active');
         slideLinks.forEach((link, index) => {
@@ -35,9 +36,15 @@ MapApp.controller('MapController', function MapController($scope, $http) {
     }
     
     $scope.user = JSON.parse(localStorage.getItem('user'));
+    $scope.logout = function () {
+        $http.post('/includes/dataGetter.php', {logout: true});
+        localStorage.removeItem('user');
+        $location.path('/sign-in');
+    }
 
     $http.post('/includes/dataGetter.php', {desks: true})
     .then(x => {
+        console.log(x.data.desks);
         let buildingData = {
             features: x.data.floor
         };
@@ -51,7 +58,10 @@ MapApp.controller('MapController', function MapController($scope, $http) {
         }
 
         $scope.vectorMapOptions = {
-            maxZoomFactor: 4,
+            controlBar: {
+                enabled: false
+            },
+            maxZoomFactor: 10,
             projection: {
                 to: function (coordinates) {
                     return [coordinates[0] / 100, coordinates[1] / 100];
@@ -82,7 +92,16 @@ MapApp.controller('MapController', function MapController($scope, $http) {
                 size: 60,
                 dataSource: desksData,
                 name: "desks"
-            }],
+            }/*, {
+                type: "user",
+                elementType: "image",
+                dataField: "url",
+                size: 60,
+                dataSource: {
+                    
+                },
+                name: "desks"
+            }*/],
             loadingIndicator: {
                 show: true
             },

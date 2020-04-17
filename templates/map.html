@@ -25,7 +25,6 @@
     </div>
 </header>
 <div class="sideBar"> 
-    <div class="container">
         <div class="sideBar__inner">
             <div class="sideBar__close">
                 <i class="fas fa-times"></i>
@@ -35,26 +34,28 @@
                 <p>{{user.surname + " " + user.name}}</p>
                 <p>[{{user.post}}]</p>
             </div>
-            <ul class="sideBar__links">
-                <li>
-                    <p><i class="far fa-envelope"></i> {{user.email}}</p>
-                </li>
-                <li>
-                    <p><i class="fas fa-phone-alt"></i> {{user.phone}}</p>
-                </li>
-                <li>
-                    <p><i class="fas fa-briefcase"></i> {{user.status}}</p>
-                </li>
-                <li>
-                    <a href="#"><i class="fab fa-vk"></i> Social</a>
-                </li>
-            </ul>
             <div class="sideBar__user__edit">
                 <i class="far fa-edit"></i>
             </div>
-
-        </div>
-    </div>       
+            <ul class="sideBar__links">
+                <li>
+                    <p><i class="far fa-envelope"></i><input type="text" name="" value=" {{user.email}}" readonly></p>
+                </li>
+                <li>
+                    <p><i class="fas fa-phone-alt"></i><input type="text" name="" value=" {{user.phone}}" readonly></p>
+                </li>
+                <li>
+                    <p><i class="fas fa-briefcase"></i><input type="text" name="" value=" {{user.status}}" readonly></p>
+                </li>
+                <li>
+                    <p><i class="fab fa-vk"></i><input type="text" name="" value=" Social" readonly></p>
+                </li>
+            </ul>          
+            <div class="sideBar__user__exit">
+                <input type="button" value="Log Out" ng-click="logout()">
+            </div>
+            
+        </div>      
 </div>
 <div class="content">
     <div id="vector-map" dx-vector-map="vectorMapOptions"></div>
