@@ -36,7 +36,15 @@
                 <i class="fas fa-times"></i>
             </div>
             <div class="sideBar__user">
-                <img src="images/users/{{user.image}}" alt="">
+                <div class="user__img">
+                    <img src="images/users/{{user.image}}" alt="Аватарка">
+                    <div class="img__change">
+                        <label for="uploadAvatar">
+                            edit  <i class="fas fa-pen"></i>
+                        </label>
+                        <input type="file" name="" id="uploadAvatar">
+                    </div>
+                </div>     
                 <p>{{user.surname + " " + user.name}}</p>
                 <p>[{{user.post}}]</p>
             </div>

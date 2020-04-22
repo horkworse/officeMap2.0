@@ -24,13 +24,13 @@ function toClipboard(element) {
 }
 
 function onKonamiCode(coolback) {
-    var input = '';
-    var key = '38384040373937396665';
+    let input = '';
+    let key = '38384040373937396665';
     document.addEventListener('keydown', function (e) {
         input += ("" + e.keyCode);
-        if (input === key) {
+        if (input === key)
             return coolback();
-        }
+            
         if (!key.indexOf(input)) return;
             input = ("" + e.keyCode);
     });

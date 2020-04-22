@@ -9,6 +9,9 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
     
     /* Selct выбор иконки */
     changeStatus();
+
+    /*Недо пасхалка, потом зафигачим норм пасхалку*/
+    onKonamiCode(function () {alert('Ты лох!!!')});
     
     /* харним данные о юзере */
     $scope.user = JSON.parse(localStorage.getItem('user'));
