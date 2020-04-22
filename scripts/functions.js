@@ -38,10 +38,10 @@ function onKonamiCode(coolback) {
 
 let openNav = () => {
     let avatar = document.getElementById('avatar');
-    let user__nav = document.querySelector('.user__nav');
+    let userNav = document.querySelector('.user__nav');
 
     avatar.addEventListener('click', () => {
-        user__nav.classList.toggle('user__nav--active');
+        userNav.classList.toggle('user__nav--active');
     });  
 }
 
@@ -92,3 +92,4 @@ function changeStatus () {
         }
     });
 }
+
