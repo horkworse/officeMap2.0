@@ -1,50 +1,30 @@
 "use strict";
 MapApp.controller('MapController', function MapController($scope, $http, $location) {
-
-    let slide = () =>{
-        let user = document.querySelector('.user');
-        let close = document.querySelector('.sideBar__close');
-        let sideBar = document.querySelector('.sideBar__inner');
-        let slideLinks = document.querySelectorAll('.sideBar__links li');
-
-        let cont = document.querySelector('.content');
-
-
-        user.addEventListener('click', () => {
-            cont.classList.toggle('content-active');
-            slideFunction(sideBar, slideLinks);
-        });  
-
-        //Повторение кода, знаю, потом подумаю как избавится, а может просто избавлюсь от крестика
-        close.addEventListener('click', () => {
-            cont.classList.toggle('content-active');
-            slideFunction(sideBar, slideLinks);
-        }); 
-    }
-    slide();
-
-    function slideFunction(sideBar, slideLinks) {
-        sideBar.classList.toggle('sideBar-active');
-        slideLinks.forEach((link, index) => {
-            if (link.style.animation) {
-                link.style.animation = '';
-            }
-            else {
-                link.style.animation = `sideBarLinksFade 0.5s ease forwards ${index / 7 + 0.3}s`;
-            }
-        });
-    }
     
+    /*Меню октрытие*/
+    openNav();
+
+    /*Сайд бар*/
+    slide();
+    
+    /* Selct выбор иконки */
+    changeStatus();
+    
+    /* харним данные о юзере */
     $scope.user = JSON.parse(localStorage.getItem('user'));
+
+    /* выход юзера из учетки*/
     $scope.logout = function () {
         $http.post('/includes/dataGetter.php', {logout: true});
         localStorage.removeItem('user');
         $location.path('/sign-in');
     }
 
+    /* карта */
     $http.post('/includes/dataGetter.php', {desks: true})
     .then(x => {
-        console.log(x.data.desks);
+        
+        /* формируем объекты с данными о этаже, комнатах и столах */
         let buildingData = {
             features: x.data.floor
         };
@@ -57,6 +37,7 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
             features: x.data.desks
         }
 
+        /* подгрузка карты */
         $scope.vectorMapOptions = {
             controlBar: {
                 enabled: false
@@ -92,19 +73,11 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
                 size: 60,
                 dataSource: desksData,
                 name: "desks"
-            }/*, {
-                type: "user",
-                elementType: "image",
-                dataField: "url",
-                size: 60,
-                dataSource: {
-                    
-                },
-                name: "desks"
-            }*/],
+            }],
             loadingIndicator: {
                 show: true
             },
+            /* вывод popUp при наведении выши на стол */
             tooltip: {
                 enabled: true,
                 contentTemplate: (info, container) => {
