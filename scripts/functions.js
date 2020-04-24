@@ -78,7 +78,7 @@ function slideFunction(sideBar, slideLinks) {
 }
 
 function changeStatus () {
-	document.getElementById("statusSelect").addEventListener("change", function(){
+    document.getElementById("statusSelect").addEventListener("change", function(){
         let st = document.getElementById("statusSelect").value;
 
         if(+st == 1){
