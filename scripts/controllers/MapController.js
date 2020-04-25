@@ -98,7 +98,7 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
                         post.innerText = e.attribute('post');
 
                         let status = document.createElement('span');
-                        status.className = 'post';
+                        status.className = 'status';
                         status.innerText = e.attribute('status');
 
                         name.prepend(post);

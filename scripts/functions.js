@@ -6,9 +6,25 @@ function editForm(){
     form.forEach(function(item){
         item.toggleAttribute('readonly');
 
+        if (item.style.cursor == 'text')
+        {
+            var data = new FormData();
+            data.append('type', item.id);
+            data.append('value', item.value);
+            data.append('surname', item.name.split(" ")[0]);
+            data.append('name', item.name.split(" ")[1]);
+            
+            //alert(item.name.split(" ")[1]); 
+            //alert(item.value); 
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', "includes/functions.php", true);
+            xhr.send(data);
+        }
+
         item.style.cursor = (item.style.cursor == 'text') ? '' : 'text';
         item.style.borderBottom  = (item.style.borderBottom  == '') ? '1px solid #000' : '';
-    });      
+    });       
+    
 }
 
 /*Баг нужно нажать 2 раза почему то*/
@@ -77,19 +93,29 @@ function slideFunction(sideBar, slideLinks) {
     });
 }
 
+
 function changeStatus () {
     document.getElementById("statusSelect").addEventListener("change", function(){
         let st = document.getElementById("statusSelect").value;
 
         if(+st == 1){
             document.getElementById('stat').setAttribute("class", "fas fa-fire");
+            document.getElementById('stat').style.color = '#FF5340';
         }else if(+st == 2){
             document.getElementById('stat').setAttribute("class", "fas fa-briefcase");
+            document.getElementById('stat').style.color = '#FFEB73';
         }else if(+st == 3){
             document.getElementById('stat').setAttribute("class", "fas fa-utensils");
+            document.getElementById('stat').style.color = '#FF6858';
         }else if(+st == 4){
             document.getElementById('stat').setAttribute("class", "fas fa-wine-bottle");
+            document.getElementById('stat').style.color = '#40FF9B';
         }
     });
 }
 
+//Не работает почему то
+$(function(){
+    //2. Получить элемент, к которому необходимо добавить маску
+    $("#phone").mask("8(999) 999-9999");
+});

@@ -53,21 +53,24 @@
             </div>
             <ul class="sideBar__links" unselectable="on" onselectstart="return false;">
                 <li>
-                    <p><i class="fas fa-envelope"  title="Нажмите 2 раза для копирования" onclick='toClipboard(this)' data-clipboard-text=" {{user.email}}"></i><input id="input__Email" class="inputs" type="text" name="" value=" {{user.email}}" readonly></p>
+                    <p><i class="fas fa-envelope"  title="Нажмите 2 раза для копирования" onclick='toClipboard(this)' data-clipboard-text="{{user.email}}"></i>
+                        <input id="email" class="inputs" type="text" value="{{user.email}}" name="{{user.surname + ' ' + user.name}}" readonly></p>
                 </li>
                 <li>
-                    <p><i class="fas fa-phone-alt"  title="Нажмите 2 раза для копирования" onclick='toClipboard(this)' data-clipboard-text=" {{user.phone}}"></i><input id="input__Phone" class="inputs" type="text" name=""  value=" {{user.phone}}" readonly></p>
+                    <p><i class="fas fa-phone-alt"  title="Нажмите 2 раза для копирования" onclick='toClipboard(this)' data-clipboard-text="{{user.phone}}"></i>
+                        <input id="phone" class="inputs" type="text" value="" name="{{user.surname + ' ' + user.name}}" readonly></p>
                 </li>
                 <li>
-                    <p><i class="fas fa-comments"  title="Нажмите 2 раза для копирования" onclick='toClipboard(this)' data-clipboard-text=" Social"></i><input id="input__Social" class="inputs" type="text" name="" value=" {{user.social}}" readonly></p>
+                    <p><i class="fas fa-comments"  title="Нажмите 2 раза для копирования" onclick='toClipboard(this)' data-clipboard-text="{{user.social}}"></i>
+                        <input id="social" class="inputs" type="text" value="{{user.social}}" name="{{user.surname + ' ' + user.name}}" readonly></p>
                 </li>
                 <li>
                     <p><i id="stat" class="fas fa-question"></i> <select id="statusSelect" >
                         <option value="0" selected="selected" disabled="disabled"> Статус</option>
-                        <option value="1"> Горит все</option>
-                        <option value="2"> Занят, но не очень</option>
-                        <option value="3"> Кушаю</option>
-                        <option value="4"> А что надо работать???</option>
+                        <option value="1"> Работает</option>
+                        <option value="2"> В отпуске</option>
+                        <option value="3"> Болеет</option>
+                        <option value="4"> Командировка</option>
                     </select></p>
                 </li>
             </ul>                    
