@@ -1,7 +1,7 @@
 'use strict';
 
 function editForm(){
-    let form = document.querySelectorAll('.s');
+    let form = document.querySelectorAll('.inputs');
 
     form.forEach(function(item){
         item.toggleAttribute('readonly');
