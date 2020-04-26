@@ -26,7 +26,40 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
         $http.post('/includes/dataGetter.php', {logout: true});
         localStorage.removeItem('user');
         $location.path('/sign-in');
-    }
+    };
+
+    /* пока пусть будет так, потом оптимизирую и сделаю так, как вы планировали */
+
+    $scope.editForm = function(user) {
+        let form = document.querySelectorAll('.inputs');
+
+        if (form[0].style.cursor == 'text')
+        {
+            $http.post('/includes/dataGetter.php', {
+                update: true,
+                data: {
+                    id: user.id,
+                    social: user.social,
+                    phone: user.phone,
+                    status: user.status
+                }
+            })
+            .then(x => console.log(x.data));
+        }
+        form.forEach(function(item) {
+            item.toggleAttribute('readonly');
+            item.style.cursor = (item.style.cursor == 'text') ? '' : 'text';
+            item.style.borderBottom  = (item.style.borderBottom  == '') ? '1px solid #000' : '';
+        });
+    };
+
+    $scope.statuses = [
+        { name: "Не беспокоить", value: "0" },
+        { name: "Отошел", value: "1" },
+        { name: "Работает", value: "2" },
+        { name: "Не работает", value: "3" }
+    ];
+    $scope.status = $scope.statuses[0];
 
     /* карта */
     $http.post('/includes/dataGetter.php', {desks: true})

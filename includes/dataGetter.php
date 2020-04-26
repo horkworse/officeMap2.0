@@ -27,7 +27,12 @@
 	if (isset($request['logout'])){
 		unset($_SESSION['user']);
 		exit;
-	}	
+	}
+
+	if (isset($request['update'])) {
+        echo json_encode(update($pdo, $request['data']));
+        exit;
+	}
 
 	if (isset($request['user'])){
 		$email = $request['email'];

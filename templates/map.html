@@ -48,30 +48,27 @@
                 <p>{{user.surname + " " + user.name}}</p>
                 <p>[{{user.post}}]</p>
             </div>
-            <div class="sideBar__user__edit" id="edit" onclick="editForm()">
+            <div class="sideBar__user__edit" id="edit" ng-click="editForm(user)">
                 <i class="far fa-edit"></i>
             </div>
             <ul class="sideBar__links" unselectable="on" onselectstart="return false;">
                 <li>
                     <p><i class="fas fa-envelope"  title="Нажмите 2 раза для копирования" onclick='toClipboard(this)' data-clipboard-text="{{user.email}}"></i>
-                        <input id="email" class="inputs" type="text" value="{{user.email}}" name="{{user.surname + ' ' + user.name}}" readonly></p>
+                        <input id="email" class="inputs"  ng-model="user.email" type="text" readonly></p>
                 </li>
                 <li>
                     <p><i class="fas fa-phone-alt"  title="Нажмите 2 раза для копирования" onclick='toClipboard(this)' data-clipboard-text="{{user.phone}}"></i>
-                        <input id="phone" class="inputs" type="text" value="" name="{{user.surname + ' ' + user.name}}" readonly></p>
+                        <input id="phone" class="inputs"  ng-model="user.phone" type="text" readonly></p>
                 </li>
                 <li>
                     <p><i class="fas fa-comments"  title="Нажмите 2 раза для копирования" onclick='toClipboard(this)' data-clipboard-text="{{user.social}}"></i>
-                        <input id="social" class="inputs" type="text" value="{{user.social}}" name="{{user.surname + ' ' + user.name}}" readonly></p>
+                        <input id="social" class="inputs" ng-model="user.social" type="text" readonly></p>
                 </li>
                 <li>
-                    <p><i id="stat" class="fas fa-question"></i> <select id="statusSelect" >
-                        <option value="0" selected="selected" disabled="disabled"> Статус</option>
-                        <option value="1"> Работает</option>
-                        <option value="2"> В отпуске</option>
-                        <option value="3"> Болеет</option>
-                        <option value="4"> Командировка</option>
-                    </select></p>
+                    <p>
+                        <i id="stat" class="fas fa-question"></i>   
+                        <select id="statusSelect" ng-model="status" ng-options="s.name for s in statuses"></select>
+                    </p>
                 </li>
             </ul>                    
         </div>      

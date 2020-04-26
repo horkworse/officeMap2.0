@@ -129,13 +129,25 @@
         return $users->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    if (isset($_POST))
-        update($pdo, $_POST['type'], $_POST['value'], $_POST['surname'], $_POST['name']);
+// обновление данных юзера
+    function update($pdo, $data) {
+        $update = $pdo->prepare("
+            UPDATE `employees` SET 
+            `social`= :social, `phone`= :phone, `status` = :status
+            WHERE `id`= :id
+        ;");
 
-    // обновление
-    function update($pdo, $type, $value, $surname, $name) 
+        $update->bindValue(':social', $data['social'], PDO::PARAM_STR);
+        $update->bindValue(':phone', $data['phone'], PDO::PARAM_STR);
+        $update->bindValue(':status', $data['status'], PDO::PARAM_STR);
+        $update->bindValue(':id', $data['id'], PDO::PARAM_STR);
+
+        return $update->execute();
+    }
+
+    /*function update($pdo, $field, $value, $surname, $name) 
     {
-        switch ($type) 
+        switch ($field) 
         {
             case "email":
                 $sql = "UPDATE `employees` SET `email` = ? WHERE `surname` = ? AND `name` = ?";
@@ -151,5 +163,5 @@
                 break;  
         }  
         $pdo->prepare($sql)->execute([$value,  $surname, $name]);
-    }
+    }*/
 ?>

@@ -1,32 +1,5 @@
 'use strict';
 
-function editForm(){
-    let form = document.querySelectorAll('.inputs');
-
-    form.forEach(function(item){
-        item.toggleAttribute('readonly');
-
-        if (item.style.cursor == 'text')
-        {
-            var data = new FormData();
-            data.append('type', item.id);
-            data.append('value', item.value);
-            data.append('surname', item.name.split(" ")[0]);
-            data.append('name', item.name.split(" ")[1]);
-            
-            //alert(item.name.split(" ")[1]); 
-            //alert(item.value); 
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', "includes/functions.php", true);
-            xhr.send(data);
-        }
-
-        item.style.cursor = (item.style.cursor == 'text') ? '' : 'text';
-        item.style.borderBottom  = (item.style.borderBottom  == '') ? '1px solid #000' : '';
-    });       
-    
-}
-
 /*Баг нужно нажать 2 раза почему то*/
 function toClipboard(element) {
     let clipboard = new ClipboardJS(element);
