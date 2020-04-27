@@ -47,7 +47,7 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
         { name: "Не работает", value: "3" }
     ];
 
-    $scope.status = $scope.statuses.find(item => item.name=$scope.user.status);
+    $scope.status = $scope.statuses.find(item => item.name == $scope.user.status);
     /* пока пусть будет так, потом оптимизирую и сделаю так, как вы планировали */
 
     
