@@ -1,7 +1,4 @@
 // main: ../main.less
-// .sideBar{
-//     display: inline;
-// }
 
 .sideBar__inner{
     display: flex;
@@ -201,6 +198,7 @@
                 background: transparent;
 
                 display: inline-block;
+                padding-bottom: 5px;
 
                 width: 80%;
 
@@ -233,33 +231,6 @@
     }
 }
 
-/*Exit*/
-.sideBar__user__exit{
-    margin-top: 3.5rem;
-    display: flex;
-    justify-content: center;
-
-    input[type="button"]{
-        background: transparent;
-
-        border: 1px solid fade(@black, 50%);
-        border-radius: 4px;
-
-        color: fade(@black, 50%);
-        font-size: 2rem;
-        padding: 1% 15%;
-        margin: 0 auto;
-        cursor: pointer;
-    
-        transition: 0.1s;
-        
-        &:hover{
-            color: fade(@black, 100%);;
-            background-color: fade(@black, 10%);
-        }
-    }
-}
-
 .sideBar-active{
     transform: translateY(0%);
 }
@@ -286,3 +257,20 @@
     }
 }
 
+@keyframes sideBarLinksBorder{
+    from{
+        border-bottom-width: 0px;
+    }
+    to{
+        border-bottom-width: 2px;
+    }
+}
+
+@keyframes sideBarLinksUnBorder{
+    from{
+        border-bottom-width: 2px;
+    }
+    to{
+        border-bottom-width: 0px;
+    }
+}

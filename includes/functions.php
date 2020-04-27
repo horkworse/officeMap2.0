@@ -97,7 +97,8 @@
     }
 
 // авторизация
-    function signIn($pdo, $email, $password) {
+    function signIn($pdo, $email, $password) 
+    {
         $check = $pdo->prepare('
             SELECT *
             FROM `employees`
@@ -118,7 +119,8 @@
     }
 
 // вернет всех пользователей + столы
-    function getAllUsers($pdo) {
+    function getAllUsers($pdo) 
+    {
         $users = $pdo->query("
             SELECT `employees`.`id` AS `id`, `x`, `y`, `employees`.`image` as `image`, CONCAT(`surname`, ' ', `name`, ' ', `patronymic`) AS `user`, `employees`.`image` as `avatar`, `post`, `employees`.`status`
             FROM `employees` INNER JOIN
@@ -130,38 +132,32 @@
     }
 
 // обновление данных юзера
-    function update($pdo, $data) {
+    function update($pdo, $data) 
+    {
         $update = $pdo->prepare("
             UPDATE `employees` SET 
-            `social`= :social, `phone`= :phone, `status` = :status
+            `social`= :social, `phone`= :phone
             WHERE `id`= :id
         ;");
 
         $update->bindValue(':social', $data['social'], PDO::PARAM_STR);
         $update->bindValue(':phone', $data['phone'], PDO::PARAM_STR);
-        $update->bindValue(':status', $data['status'], PDO::PARAM_STR);
         $update->bindValue(':id', $data['id'], PDO::PARAM_STR);
 
         return $update->execute();
     }
 
-    /*function update($pdo, $field, $value, $surname, $name) 
+    function updateStatus($pdo, $data) 
     {
-        switch ($field) 
-        {
-            case "email":
-                $sql = "UPDATE `employees` SET `email` = ? WHERE `surname` = ? AND `name` = ?";
-                break;
-            case "phone":
-                $sql = "UPDATE `employees` SET `phone` = ? WHERE `surname` = ? AND `name` = ?";
-                break;
-            case "social":
-                $sql = "UPDATE `employees` SET `social` = ? WHERE `surname` = ? AND `name` = ?";
-                break;     
-            case "status":
-                $sql = "UPDATE `employees` SET `status` = ? WHERE `surname` = ? AND `name` = ?";
-                break;  
-        }  
-        $pdo->prepare($sql)->execute([$value,  $surname, $name]);
-    }*/
+        $updat = $pdo->prepare("
+            UPDATE `employees` SET 
+            `status`= :status
+            WHERE `id`= :id
+        ;");
+
+        $updat->bindValue(':status', $data['status'], PDO::PARAM_STR);
+        $updat->bindValue(':id', $data['id'], PDO::PARAM_STR);
+        
+        return $updat->execute();
+    }
 ?>

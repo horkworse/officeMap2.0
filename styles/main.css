@@ -393,6 +393,7 @@ p {
   outline: none;
   background: transparent;
   display: inline-block;
+  padding-bottom: 5px;
   width: 80%;
   border-right: 0;
   border-left: 0;
@@ -412,27 +413,6 @@ p {
 }
 .sideBar__user__edit:hover {
   color: #000000;
-}
-/*Exit*/
-.sideBar__user__exit {
-  margin-top: 3.5rem;
-  display: flex;
-  justify-content: center;
-}
-.sideBar__user__exit input[type="button"] {
-  background: transparent;
-  border: 1px solid rgba(0, 0, 0, 0.5);
-  border-radius: 4px;
-  color: rgba(0, 0, 0, 0.5);
-  font-size: 2rem;
-  padding: 1% 15%;
-  margin: 0 auto;
-  cursor: pointer;
-  transition: 0.1s;
-}
-.sideBar__user__exit input[type="button"]:hover {
-  color: #000000;
-  background-color: rgba(0, 0, 0, 0.1);
 }
 .sideBar-active {
   transform: translateY(0%);
@@ -455,6 +435,69 @@ p {
   to {
     opacity: 0;
     transform: translateY(-50px);
+  }
+}
+@keyframes sideBarLinksBorder {
+  from {
+    border-bottom-width: 0px;
+  }
+  to {
+    border-bottom-width: 2px;
+  }
+}
+@keyframes sideBarLinksUnBorder {
+  from {
+    border-bottom-width: 2px;
+  }
+  to {
+    border-bottom-width: 0px;
+  }
+}
+#fade {
+  position: absolute;
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: none;
+  width: 100vw;
+  height: 100vh;
+}
+#pashalka {
+  position: absolute;
+  z-index: 9999;
+  display: none;
+  flex-direction: column;
+  background-color: yellow;
+  border: 2px solid black;
+  padding: 1em 2em 2em;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+#pashalka img {
+  margin-bottom: 1em;
+  margin-top: 0.8em;
+  border: 1px solid black;
+}
+#pashalka p {
+  font-weight: 700;
+}
+#pashalka p:last-child {
+  font-weight: 400;
+  margin-top: 10px;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+}
+#pashalka p:first-child {
+  font-size: 1.2rem;
+}
+@keyframes pas {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 #signForm {

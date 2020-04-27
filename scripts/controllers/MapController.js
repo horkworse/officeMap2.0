@@ -16,7 +16,18 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
     changeStatus();
 
     /*Недо пасхалка, потом зафигачим норм пасхалку*/
-    onKonamiCode(function () {alert('Ты лох!!!')});
+    onKonamiCode(function () {
+        let fade = document.getElementById('fade');
+        let pas = document.getElementById('pashalka');
+        pas.style.display = 'flex';
+        fade.style.display = 'block';
+        pas.style.animation = `pas 0.7s ease`;
+
+        fade.addEventListener('click', () => {
+            pas.style.display = 'none';
+            fade.style.display = 'none';
+        }); 
+    });
     
     /* харним данные о юзере */
     $scope.user = JSON.parse(localStorage.getItem('user'));
@@ -28,13 +39,20 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
         $location.path('/sign-in');
     };
 
+
+    $scope.statuses = [
+        { name: "Не беспокоить", value: "0" },
+        { name: "Отошел", value: "1" },
+        { name: "Работает", value: "2" },
+        { name: "Не работает", value: "3" }
+    ];
+
+    $scope.status = $scope.statuses.find(item => item.name=$scope.user.status);
     /* пока пусть будет так, потом оптимизирую и сделаю так, как вы планировали */
 
+    
     $scope.editForm = function(user) {
         let form = document.querySelectorAll('.inputs');
-
-
-
         if (form[0].style.cursor == 'text')
         {
             $http.post('/includes/dataGetter.php', {
@@ -42,8 +60,7 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
                 data: {
                     id: user.id,
                     social: user.social,
-                    phone: user.phone,
-                    status: user.status
+                    phone: user.phone
                 }
             })
             .then(x => console.log(x.data));
@@ -52,22 +69,21 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
         form.forEach(function(item) {
             item.toggleAttribute('readonly');
             item.style.cursor = (item.style.cursor == 'text') ? '' : 'text';
-            item.style.borderBottom  = (item.style.borderBottom  == '') ? '1px solid #000' : '';
+            // item.style.borderBottom  = (item.style.borderBottom  == '') ? '1px solid #000' : '';
+            if(item.style.borderBottom  == ''){
+                item.style.borderBottom = '2px solid rgba(0,0,0,.5)';
+                item.style.animation = `sideBarLinksBorder 0.2s ease`;
+            }else{
+                item.style.borderBottom  = '';
+                item.style.animation = `sideBarLinksUnBorder 0.2s ease`;
+            }
+            
         });
     };
-
-    $scope.statuses = [
-        { name: "Не беспокоить", value: "0" },
-        { name: "Отошел", value: "1" },
-        { name: "Работает", value: "2" },
-        { name: "Не работает", value: "3" }
-    ];
-    $scope.status = $scope.statuses[0];
 
     /* карта */
     $http.post('/includes/dataGetter.php', {desks: true})
     .then(x => {
-        
         /* формируем объекты с данными о этаже, комнатах и столах */
         let buildingData = {
             hoverEnabled: false,

@@ -40,8 +40,6 @@ let slide = () => {
     let sideBar = document.querySelector('.sideBar__inner');
     let slideLinks = document.querySelectorAll('.sideBar__links li');
     let user__nav = document.querySelector('.user__nav');
-    // let cont = document.querySelector('.content');
-
 
     user.addEventListener('click', () => {
         user__nav.classList.remove('user__nav--active');
@@ -66,29 +64,35 @@ function slideFunction(sideBar, slideLinks) {
     });
 }
 
-
-function changeStatus () {
-    document.getElementById("statusSelect").addEventListener("change", function(){
-        let st = document.getElementById("statusSelect").value;
-
-        if(+st == 1){
+function changeStatus () 
+{
+    document.getElementById("statusSelect").addEventListener("change", function()
+    {
+        if(this.selectedIndex == 1)
+        {
             document.getElementById('stat').setAttribute("class", "fas fa-fire");
             document.getElementById('stat').style.color = '#FF5340';
-        }else if(+st == 2){
+        }
+        else if(this.selectedIndex == 2)
+        {
             document.getElementById('stat').setAttribute("class", "fas fa-briefcase");
             document.getElementById('stat').style.color = '#FFEB73';
-        }else if(+st == 3){
+        }
+        else if(this.selectedIndex == 3)
+        {
             document.getElementById('stat').setAttribute("class", "fas fa-utensils");
             document.getElementById('stat').style.color = '#FF6858';
-        }else if(+st == 4){
+        }
+        else 
+        {
             document.getElementById('stat').setAttribute("class", "fas fa-wine-bottle");
             document.getElementById('stat').style.color = '#40FF9B';
         }
+        var data = new FormData();  
+        data.append("status", this.options[this.selectedIndex].label);
+        data.append("id", JSON.parse(localStorage.user)["id"]);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', "includes/dataGetter.php", true);
+        xhr.send(data);
     });
 }
-
-//Не работает почему то
-$(function(){
-    //2. Получить элемент, к которому необходимо добавить маску
-    $("#phone").mask("8(999) 999-9999");
-});

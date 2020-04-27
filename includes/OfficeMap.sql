@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Апр 24 2020 г., 19:24
--- Версия сервера: 5.7.20-log
+-- Время создания: Апр 27 2020 г., 18:02
+-- Версия сервера: 5.7.20
 -- Версия PHP: 7.0.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -59,24 +59,24 @@ CREATE TABLE `employees` (
   `name` varchar(30) DEFAULT NULL,
   `patronymic` varchar(30) DEFAULT NULL,
   `post` enum('Директор','Программист','Тестировщик','Аналитик') NOT NULL COMMENT 'Должность',
-  `social` varchar(100) NOT NULL,
   `image` varchar(100) NOT NULL DEFAULT '1.jpg',
-  `phone` varchar(20) NOT NULL DEFAULT '',
-  `status` enum('Работает','В отпуске','Болеет','Командировка') DEFAULT 'Работает' COMMENT 'Статус работника',
+  `password` text NOT NULL,
   `email` varchar(60) NOT NULL,
-  `password` text NOT NULL
+  `phone` varchar(20) NOT NULL DEFAULT '',
+  `social` varchar(100) NOT NULL,
+  `status` enum('Не беспокоить','Отошел','Работает','Не работает') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `employees`
 --
 
-INSERT INTO `employees` (`id`, `surname`, `name`, `patronymic`, `post`, `social`, `image`, `phone`, `status`, `email`, `password`) VALUES
-(1, 'Зиновьев', 'Бронислав ', 'Анатольевич', 'Программист', '', 'default.png', '7(495)870-78-64', 'Работает', 'aojv@mail.ru', '$2y$10$qCzTSyZNZgbF0E307esJx.XMt6PLre2f2VbiNeaTsl.6b.kvovyK6'),
-(2, 'Лазарев ', 'Дональд ', 'Викторович', 'Директор', '', 'default.png', '7(495)933-15-61', 'В отпуске', 'kggfpxw@yandex.ru', '$2y$10$qCzTSyZNZgbF0E307esJx.XMt6PLre2f2VbiNeaTsl.6b.kvovyK6'),
-(3, 'Устинов ', 'Архип ', 'Владимирович', 'Аналитик', '', 'default.png', '7(495)331-04-03', 'Работает', 'oxxv@yandex.ru', '$2y$10$qCzTSyZNZgbF0E307esJx.XMt6PLre2f2VbiNeaTsl.6b.kvovyK6'),
-(4, 'Панов ', 'Яков ', 'Лукьянович', 'Тестировщик', '', 'default.png', '7(495)723-99-98', 'Болеет', 'f9jxjd14@gmail.com', '$2y$10$qCzTSyZNZgbF0E307esJx.XMt6PLre2f2VbiNeaTsl.6b.kvovyK6'),
-(5, 'Мельников ', 'Платон ', 'Михаилович', 'Программист', '', 'default.png', '7(495)795-65-95', 'Болеет', 'p24a@mail.ru', '$2y$10$qCzTSyZNZgbF0E307esJx.XMt6PLre2f2VbiNeaTsl.6b.kvovyK6');
+INSERT INTO `employees` (`id`, `surname`, `name`, `patronymic`, `post`, `image`, `password`, `email`, `phone`, `social`, `status`) VALUES
+(1, 'Зиновьев', 'Бронислав ', 'Анатольевич', 'Программист', 'default.png', '$2y$10$qCzTSyZNZgbF0E307esJx.XMt6PLre2f2VbiNeaTsl.6b.kvovyK6', 'aojv@mail.ru', '7(495)870-78-641', '12133', 'Работает'),
+(2, 'Лазарев ', 'Дональд ', 'Викторович', 'Директор', 'default.png', '$2y$10$qCzTSyZNZgbF0E307esJx.XMt6PLre2f2VbiNeaTsl.6b.kvovyK6', 'kggfpxw@yandex.ru', '7(495)933-15-61', '', 'Работает'),
+(3, 'Устинов ', 'Архип ', 'Владимирович', 'Аналитик', 'default.png', '$2y$10$qCzTSyZNZgbF0E307esJx.XMt6PLre2f2VbiNeaTsl.6b.kvovyK6', 'oxxv@yandex.ru', '7(495)331-04-03', '', 'Работает'),
+(4, 'Панов ', 'Яков ', 'Лукьянович', 'Тестировщик', 'default.png', '$2y$10$qCzTSyZNZgbF0E307esJx.XMt6PLre2f2VbiNeaTsl.6b.kvovyK6', 'f9jxjd14@gmail.com', '7(495)723-99-98', '', 'Работает'),
+(5, 'Мельников ', 'Платон ', 'Михаилович', 'Программист', 'default.png', '$2y$10$qCzTSyZNZgbF0E307esJx.XMt6PLre2f2VbiNeaTsl.6b.kvovyK6', 'p24a@mail.ru', '7(495)795-65-95', '', 'Работает');
 
 -- --------------------------------------------------------
 

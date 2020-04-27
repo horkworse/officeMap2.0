@@ -1,0 +1,62 @@
+// main: ../main.less
+
+#fade{
+    position: absolute;
+    z-index: 999;
+
+    background-color: rgba(0,0,0, .6);
+
+    display: none;
+
+    width: 100vw;
+    height: 100vh;
+}
+
+#pashalka{
+    position: absolute;
+    z-index: 9999;
+
+    display: none;
+    flex-direction: column;
+
+    background-color: yellow;
+    border: 2px solid black;
+
+    padding: 1em 2em 2em;
+
+    text-align: center;
+
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+
+    img{
+        margin-bottom: 1em;
+        margin-top: 0.8em;
+        border: 1px solid black;
+    }
+
+    p{
+        font-weight: 700;
+        &:last-child{
+            font-weight: 400;
+            margin-top: 10px;
+            border-bottom: 1px solid black;
+            border-top: 1px solid black;
+        }
+        &:first-child{
+            
+            font-size: 1.2rem;
+        }
+    }
+}
+
+@keyframes pas{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
