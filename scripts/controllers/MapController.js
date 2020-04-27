@@ -33,6 +33,8 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
     $scope.editForm = function(user) {
         let form = document.querySelectorAll('.inputs');
 
+
+
         if (form[0].style.cursor == 'text')
         {
             $http.post('/includes/dataGetter.php', {
@@ -45,6 +47,7 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
                 }
             })
             .then(x => console.log(x.data));
+            localStorage.user = JSON.stringify($scope.user);
         }
         form.forEach(function(item) {
             item.toggleAttribute('readonly');
