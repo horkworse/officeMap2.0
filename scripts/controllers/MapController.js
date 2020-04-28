@@ -69,7 +69,6 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
         form.forEach(function(item) {
             item.toggleAttribute('readonly');
             item.style.cursor = (item.style.cursor == 'text') ? '' : 'text';
-            // item.style.borderBottom  = (item.style.borderBottom  == '') ? '1px solid #000' : '';
             if(item.style.borderBottom  == ''){
                 item.style.borderBottom = '2px solid rgba(0,0,0,.5)';
                 item.style.animation = `sideBarLinksBorder 0.2s ease`;
@@ -77,7 +76,6 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
                 item.style.borderBottom  = '';
                 item.style.animation = `sideBarLinksUnBorder 0.2s ease`;
             }
-            
         });
     };
 
@@ -149,9 +147,19 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
                         post.className = 'post';
                         post.innerText = e.attribute('post');
 
-                        let status = document.createElement('span');
+                        let status = document.createElement('p');
                         status.className = 'status';
                         status.innerText = e.attribute('status');
+
+                        if(status.innerText == 'Не работает')
+                            status.style.color = '#19FF4F';
+                        else if (status.innerText == 'Не беспокоить')
+                            status.style.color = '#FF0D22';
+                        else if (status.innerText == 'Отошел')
+                            status.style.color = '#0122FF';
+                        else{
+                            status.style.color = '#FFC400';
+                        }
 
                         name.prepend(post);
                         name.append(status);
@@ -161,8 +169,7 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
                     }
                 }
             },
-            onZoomFactorChanged: function (e) {
-                
+            onZoomFactorChanged: function (e) {    
                 desksData.size = config.iconSize * e.zoomFactor;
                 e.component.getLayerByName('desks').getElements().forEach((x, i, arr) => {
                     x.applySettings(desksData);

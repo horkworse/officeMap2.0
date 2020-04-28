@@ -68,25 +68,25 @@ function changeStatus ()
 {
     document.getElementById("statusSelect").addEventListener("change", function()
     {
-        if(this.selectedIndex == 1)
+        if(this.selectedIndex == 0)
         {
             document.getElementById('stat').setAttribute("class", "fas fa-fire");
-            document.getElementById('stat').style.color = '#FF5340';
+            document.getElementById('stat').style.color = '#FF0D22';
         }
         else if(this.selectedIndex == 2)
         {
             document.getElementById('stat').setAttribute("class", "fas fa-briefcase");
-            document.getElementById('stat').style.color = '#FFEB73';
+            document.getElementById('stat').style.color = '#FFC400';
         }
-        else if(this.selectedIndex == 3)
+        else if(this.selectedIndex == 1)
         {
-            document.getElementById('stat').setAttribute("class", "fas fa-utensils");
-            document.getElementById('stat').style.color = '#FF6858';
+            document.getElementById('stat').setAttribute("class", "fas fa-door-open");
+            document.getElementById('stat').style.color = '#0122FF';
         }
         else 
         {
             document.getElementById('stat').setAttribute("class", "fas fa-wine-bottle");
-            document.getElementById('stat').style.color = '#40FF9B';
+            document.getElementById('stat').style.color = '#19FF4F';
         }
         var data = new FormData();  
         data.append("status", this.options[this.selectedIndex].label);

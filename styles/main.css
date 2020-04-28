@@ -246,6 +246,10 @@ p {
   color: #000000;
   font-weight: bold;
 }
+.status {
+  text-align: center;
+  font-weight: 600;
+}
 .sideBar__inner {
   display: flex;
   flex-direction: column;
