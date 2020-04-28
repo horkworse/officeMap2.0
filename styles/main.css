@@ -52,11 +52,11 @@ p {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  cursor: pointer;
 }
 .user__avatar {
   width: 60px;
   height: 60px;
+  cursor: pointer;
   display: inline-block;
   position: relative;
   flex-basis: 1;
@@ -75,12 +75,6 @@ p {
   position: relative;
   padding-top: 1rem;
   width: 10rem;
-}
-.user__nav--active {
-  display: block;
-  animation-name: fadeIn;
-  animation-duration: 0.2s;
-  animation-timing-function: ease;
 }
 .nav__inner {
   display: flex;
@@ -143,6 +137,10 @@ p {
   width: 100%;
   margin-left: 2rem;
 }
+.search form {
+  display: inline-block;
+  position: relative;
+}
 @media (max-width: 650px) {
   .search {
     width: 75%;
@@ -182,6 +180,20 @@ p {
   font-size: 1.2rem;
   color: #fff;
   mix-blend-mode: difference;
+}
+#search__field {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  color: #000000;
+  border-radius: 2px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  margin-top: 0.4em;
+  padding: 5px;
+}
+.search__field--active {
+  display: block;
 }
 .container {
   width: 100%;

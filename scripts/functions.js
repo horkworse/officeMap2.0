@@ -6,12 +6,10 @@ function toClipboard(element) {
     
     clipboard.on('success', function(e) {
         alert('Скопирован ' + e.text);
-        console.info('Action:', e.action);
-        console.info('Text:', e.text);
-        console.info('Trigger:', e.trigger);    
     });  
 }
 
+//Пасхалка
 function onKonamiCode(coolback) {
     let input = '';
     let key = '38384040373937396665';
@@ -25,24 +23,33 @@ function onKonamiCode(coolback) {
     });
 }
 
+//Работа DropDown меню
 let openNav = () => {
     let avatar = document.getElementById('avatar');
     let userNav = document.querySelector('.user__nav');
 
     avatar.addEventListener('click', () => {
-        userNav.classList.toggle('user__nav--active');
+        // userNav.classList.toggle('user__nav--active');
+        // userNav.style.display = 'block';
+        if($('.user__nav:visible').length)
+            $(userNav).slideUp(300, "linear");
+        else
+            $(userNav).slideDown(300, "linear"); 
     });  
+    closeOutOfElement(userNav);
 }
 
+//Работа сайдбара
 let slide = () => {
     let user = document.querySelector('.sideBar__open');
     let close = document.querySelector('.sideBar__close');
     let sideBar = document.querySelector('.sideBar__inner');
     let slideLinks = document.querySelectorAll('.sideBar__links li');
-    let user__nav = document.querySelector('.user__nav');
+    let userNav = document.querySelector('.user__nav');
 
     user.addEventListener('click', () => {
-        user__nav.classList.remove('user__nav--active');
+        // user__nav.classList.remove('user__nav--active');
+        $(userNav).slideUp(300, "linear"); 
         slideFunction(sideBar, slideLinks);
     });  
 
@@ -64,6 +71,7 @@ function slideFunction(sideBar, slideLinks) {
     });
 }
 
+//Смена статуса, отправка на сервер, и смена иконки
 function changeStatus () 
 {
     document.getElementById("statusSelect").addEventListener("change", function()
@@ -94,5 +102,29 @@ function changeStatus ()
         var xhr = new XMLHttpRequest();
         xhr.open('POST', "includes/dataGetter.php", true);
         xhr.send(data);
+    });
+}
+
+//Открытие при фокусе поля с вариантыми ответа поиска
+function searchField (){
+    let search = document.getElementById('search__input');
+    let searchField = document.getElementById('search__field');
+
+    $(search).focus(function() {
+        $(searchField).slideDown(300, "linear"); 
+    });
+
+    $(search).blur(function() {
+        $(searchField).slideUp(300, "linear"); 
+    });
+}
+
+//Закрытие элемента при клике вне его области
+function closeOutOfElement (element){
+    $(document).mouseup(function (e){ // событие клика по веб-документу
+        let div = $(element);
+        if (!div.is(e.target) && div.has(e.target).length === 0) { // и не по его дочерним элементам
+            div.slideUp(300, "linear");  // скрываем его
+        }
     });
 }

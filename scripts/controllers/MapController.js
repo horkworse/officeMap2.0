@@ -28,6 +28,8 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
             fade.style.display = 'none';
         }); 
     });
+
+    searchField();
     
     /* харним данные о юзере */
     $scope.user = JSON.parse(localStorage.getItem('user'));
