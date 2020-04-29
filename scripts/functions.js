@@ -28,6 +28,15 @@ let openNav = () => {
     let avatar = document.getElementById('avatar');
     let userNav = document.querySelector('.user__nav');
 
+    avatar.addEventListener('keydown', () => {
+        if (event.keyCode === 13) {
+            if($('.user__nav:visible').length)
+                $(userNav).slideUp(300, "linear");
+            else
+                $(userNav).slideDown(300, "linear"); 
+        }   
+    });  
+
     avatar.addEventListener('click', () => {
         // userNav.classList.toggle('user__nav--active');
         // userNav.style.display = 'block';

@@ -51,7 +51,6 @@
 /*Close*/
 .sideBar__close{
     font-size: 125%;
-    color: fade(@black, 50%);
 
     padding-bottom: 1.5%;
     padding-right: 0.5rem;
@@ -61,11 +60,15 @@
 
     cursor: pointer;
 
+    a{
+        text-decoration: none;
+        color: fade(@black, 50%);
 
-    transition: 0.2s;
+        transition: 0.2s;
 
-    &:hover{
-        color: fade(@black, 100%);
+        &:hover{
+            color: fade(@black, 100%);
+        }
     }
 }
 
@@ -215,8 +218,7 @@
 /*edit*/
 .sideBar__user__edit{
     font-size: 150%;
-    color: fade(@black, 50%);
-
+    
     padding-right: 0.5rem;
 
     display: flex;
@@ -224,10 +226,15 @@
 
     cursor: pointer;
 
-    transition: 0.2s;
+    a{
+        text-decoration: none;
+        color: fade(@black, 50%);
 
-    &:hover{
-        color: fade(@black, 100%);
+        transition: 0.2s;
+
+        &:hover{
+            color: fade(@black, 100%);
+        }
     }
 }
 

@@ -3,7 +3,7 @@
         <div class="header__inner">
             <div class="user">
                 <div class="user__avatar">
-                    <img id="avatar" src="images/users/{{user.image}}" alt="">
+                    <img tabindex="1" id="avatar" src="images/users/{{user.image}}" alt="">
                     <div class="user__nav">
                         <div class="nav__inner">
                             <div class="signedAs">
@@ -11,10 +11,10 @@
                                 <p>{{user.email}}</p>
                             </div>
                             <div class="profile">
-                                <a href="#" class="sideBar__open">My Profile</a>
+                                <a tabindex="2" href="#" class="sideBar__open">My Profile</a>
                             </div>
                             <div class="logOut">
-                                <a href="#" ng-click="logout()">Log Out</a>
+                                <a tabindex="3" href="#" ng-click="logout()">Log Out</a>
                             </div>  
                         </div>          
                     </div>
@@ -27,13 +27,13 @@
                     <div id="search__field" class="">
                         <ul>
                             <li>
-                                Lorem ipsum dolor sit amet.
+                                <a href="#">Lorem ipsum dolor sit amet.</a>
                             </li>
                             <li>
-                                Lorem ipsum dolor sit amet.
+                                <a href="#">Lorem ipsum dolor sit amet.</a>
                             </li>
                             <li>
-                                Lorem ipsum dolor sit amet.
+                                <a href="#">Lorem ipsum dolor sit amet.</a>
                             </li>
                         </ul>
                     </div>   
@@ -46,7 +46,7 @@
 <div class="sideBar"> 
         <div class="sideBar__inner">
             <div class="sideBar__close">
-                <i class="fas fa-times"></i>
+                <a href="#"><i class="fas fa-times"></i></a>
             </div>
             <div class="sideBar__user">
                 <div class="user__img">
@@ -62,7 +62,7 @@
                 <p>[{{user.post}}]</p>
             </div>
             <div class="sideBar__user__edit" id="edit" ng-click="editForm(user)">
-                <i class="far fa-edit"></i>
+                <a href="#"><i class="far fa-edit"></i></a>
             </div>
             <ul class="sideBar__links" unselectable="on" onselectstart="return false;">
                 <li>
