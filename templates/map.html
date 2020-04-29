@@ -56,8 +56,9 @@
                             edit  <i class="fas fa-pen"></i>
                         </label>
                         <iframe name="frame" style="display: none;"></iframe>
-                        <form action="../includes/move.php" method="post" enctype="multipart/form-data" target="frame">
+                        <form id="upload" action="../includes/move.php" method="post" enctype="multipart/form-data" target="frame">
                             <input type="file" name="avatar" id="uploadAvatar" accept=".jpg, .jpeg, .png" onchange="form.submit()">
+                            <input type="text" name="user" value="{{user.id}}" />
                         </form>
                     </div>
                 </div>     
