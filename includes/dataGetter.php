@@ -45,4 +45,21 @@
 		echo json_encode(signIn($pdo, $email, $password));
 		exit;
 	}
+
+	if ($_FILES) {
+		$path = $_SERVER['DOCUMENT_ROOT'] . "/images/users/";
+		$name = $_FILES['file']['name'];
+		$temp = $_FILES['file']['tmp_name'];
+		
+		if (move_uploaded_file($temp, $path . $name)) {
+
+			$data = [
+				'id' => $_POST['id'],
+				'image' => $name
+			];
+			updateImage($pdo, $data);
+			echo $data['image'];
+		}
+		exit;
+	}
 ?>

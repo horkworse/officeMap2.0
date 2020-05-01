@@ -97,8 +97,7 @@
     }
 
 // авторизация
-    function signIn($pdo, $email, $password) 
-    {
+    function signIn($pdo, $email, $password) {
         $check = $pdo->prepare('
             SELECT *
             FROM `employees`
@@ -119,8 +118,7 @@
     }
 
 // вернет всех пользователей + столы
-    function getAllUsers($pdo) 
-    {
+    function getAllUsers($pdo) {
         $users = $pdo->query("
             SELECT `employees`.`id` AS `id`, `x`, `y`, `employees`.`image` as `image`, CONCAT(`surname`, ' ', `name`, ' ', `patronymic`) AS `user`, `employees`.`image` as `avatar`, `post`, `employees`.`status`
             FROM `employees` INNER JOIN
@@ -132,8 +130,7 @@
     }
 
 // обновление данных юзера
-    function update($pdo, $data) 
-    {
+    function update($pdo, $data) {
         $update = $pdo->prepare("
             UPDATE `employees` SET 
             `social`= :social, `phone`= :phone
@@ -147,8 +144,20 @@
         return $update->execute();
     }
 
-    function updateStatus($pdo, $data) 
-    {
+    function updateImage($pdo, $data) {
+        $updat = $pdo->prepare("
+            UPDATE `employees` SET 
+            `image`= :image
+            WHERE `id`= :id
+        ;");
+
+        $updat->bindValue(':image', $data['image'], PDO::PARAM_STR);
+        $updat->bindValue(':id', $data['id'], PDO::PARAM_STR);
+        
+        return $updat->execute();
+    }
+
+    function updateStatus($pdo, $data) {
         $updat = $pdo->prepare("
             UPDATE `employees` SET 
             `status`= :status

@@ -22,7 +22,7 @@
                 <div class="search">
                     <form>
                         <input id="search__input" class="search__input" type="text" placeholder="Поиск...">
-                        <button class="search__button" type="submit"></button>
+                        <button class="search__button" ng-click="logout()" type="submit"></button>
                     </form> 
                     <div id="search__field" class="">
                         <ul>
@@ -50,20 +50,21 @@
             </div>
             <div class="sideBar__user">
                 <div class="user__img">
-                    <img src="images/users/{{user.image}}" alt="Аватарка">
+                    <img src="images/users/{{user.image}}" ng-model="user.image" alt="Аватарка">
                     <div class="img__change">
                         <label for="uploadAvatar">
                             edit  <i class="fas fa-pen"></i>
+                            <input type="file" id="uploadAvatar" accept=".jpg, .jpeg, .png" fileread="user.image">
                         </label>
-                        <iframe name="frame" style="display: none;"></iframe>
+                        <!-- <iframe name="frame" style="display: none;"></iframe>
                         <form id="upload" action="../includes/move.php" method="post" enctype="multipart/form-data" target="frame">
                             <input type="file" name="avatar" id="uploadAvatar" accept=".jpg, .jpeg, .png" onchange="form.submit()">
                             <input type="text" name="user" value="{{user.id}}" />
-                        </form>
+                        </form> -->
                     </div>
                 </div>     
                 <p>{{user.surname + " " + user.name}}</p>
-                <p>[{{user.post}}]</p>
+                <p ng-click="log()">[{{user.post}}]</p>
             </div>
             <div class="sideBar__user__edit" id="edit" ng-click="editForm(user)">
                 <a href="#"><i class="far fa-edit"></i></a>
@@ -87,7 +88,7 @@
                         <select id="statusSelect" ng-model="status" ng-options="s.name for s in statuses"></select>
                     </p>
                 </li>
-            </ul>                    
+            </ul>                
         </div>      
 </div>
 <div class="content">

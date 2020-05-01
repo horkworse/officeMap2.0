@@ -31,16 +31,16 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
 
     searchField();
     
-    /* харним данные о юзере */
+    /* храним данные о юзере */
     $scope.user = JSON.parse(localStorage.getItem('user'));
 
     /* выход юзера из учетки*/
     $scope.logout = function () {
         $http.post('/includes/dataGetter.php', {logout: true});
         localStorage.removeItem('user');
+        $scope.user = null;
         $location.path('/sign-in');
     };
-
 
     $scope.statuses = [
         { name: "Не беспокоить", value: "0" },
