@@ -5,7 +5,7 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
         maxZoom: 10,
         iconSize: 20
     }
-
+        
     /*Меню октрытие*/
     openNav();
 

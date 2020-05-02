@@ -1,14 +1,9 @@
 'use strict';
 
-/*Баг нужно нажать 2 раза почему то*/
-function toClipboard(element) {
-    let clipboard = new ClipboardJS(element);
-    console.log(1);
-    
-    clipboard.on('success', function(e) {
-        alert('Скопирован ' + e.text);
-    });  
-}
+
+
+let clipboard = new ClipboardJS('.clip');
+clipboard.on('success', (x) => alert('Скопирован ' + x.text));  
 
 //Пасхалка
 function onKonamiCode(coolback) {
