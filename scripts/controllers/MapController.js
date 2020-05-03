@@ -51,7 +51,27 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
 
     $scope.status = $scope.statuses.find(item => item.name == $scope.user.status);
     /* пока пусть будет так, потом оптимизирую и сделаю так, как вы планировали */
-
+    
+    if($scope.status.name == 'Не работает')
+    {
+        document.getElementById('stat').setAttribute("class", "fas fa-wine-bottle");
+        document.getElementById('stat').style.color = '#19FF4F';
+    }
+    else if ($scope.status.name == 'Не беспокоить')
+    {
+        document.getElementById('stat').setAttribute("class", "fas fa-fire");
+        document.getElementById('stat').style.color = '#FF0D22';
+    }
+    else if ($scope.status.name == 'Отошел')
+    {
+        document.getElementById('stat').setAttribute("class", "fas fa-door-open");
+        document.getElementById('stat').style.color = '#0122FF';
+    }
+    else
+    {
+        document.getElementById('stat').setAttribute("class", "fas fa-briefcase");
+        document.getElementById('stat').style.color = '#FFC400';
+    }
     
     $scope.editForm = function(user) {
         let form = document.querySelectorAll('.inputs');
@@ -69,14 +89,12 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
             localStorage.user = JSON.stringify($scope.user);
         }
         form.forEach(function(item) {
-            item.toggleAttribute('readonly');
-            item.style.cursor = (item.style.cursor == 'text') ? '' : 'text';
-            if(item.style.borderBottom  == ''){
-                item.style.borderBottom = '2px solid rgba(0,0,0,.5)';
-                item.style.animation = `sideBarLinksBorder 0.2s ease`;
-            }else{
-                item.style.borderBottom  = '';
-                item.style.animation = `sideBarLinksUnBorder 0.2s ease`;
+            if (item.id != 'email')
+            {
+                item.toggleAttribute('readonly');
+                item.style.cursor = (item.style.cursor == 'text') ? '' : 'text';
+                item.style.animation  = item.style.borderBottom  == '' ? `sideBarLinksBorder 0.2s ease` : `sideBarLinksUnBorder 0.2s ease` ;
+                item.style.borderBottom  = item.style.borderBottom  == '' ? '2px solid rgba(0,0,0,.5)' : '';
             }
         });
     };
