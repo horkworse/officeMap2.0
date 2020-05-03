@@ -86,15 +86,15 @@ function changeStatus ()
             document.getElementById('stat').setAttribute("class", "fas fa-fire");
             document.getElementById('stat').style.color = '#FF0D22';
         }
-        else if(this.selectedIndex == 2)
-        {
-            document.getElementById('stat').setAttribute("class", "fas fa-briefcase");
-            document.getElementById('stat').style.color = '#FFC400';
-        }
         else if(this.selectedIndex == 1)
         {
             document.getElementById('stat').setAttribute("class", "fas fa-door-open");
             document.getElementById('stat').style.color = '#0122FF';
+        }
+        else if(this.selectedIndex == 2)
+        {
+            document.getElementById('stat').setAttribute("class", "fas fa-briefcase");
+            document.getElementById('stat').style.color = '#FFC400';
         }
         else 
         {
