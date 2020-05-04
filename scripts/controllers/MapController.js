@@ -41,7 +41,23 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
         $scope.user = null;
         $location.path('/sign-in');
     };
-
+    
+    $scope.search = function () {
+        $http.post('/includes/dataGetter.php', 
+        {
+            search: true,
+            data: { key: document.getElementById('search__input').value }
+        }).then(x => 
+            {
+                document.getElementsByClassName('list')[0].remove();
+                document.getElementById("search__field").insertAdjacentHTML("afterbegin", "<ul class='list'> </ul>");
+                x.data.forEach(employee => {
+                    document.getElementsByClassName('list')[0].insertAdjacentHTML('beforeend', '<li><a href="#"> ' 
+                    + employee.surname + " " + employee.name + " - " + employee.post   + " - " + employee.status +'</a></li>');
+                });
+            });
+    };
+    
     $scope.statuses = [
         { name: "Не беспокоить", value: "0" },
         { name: "Отошел", value: "1" },
