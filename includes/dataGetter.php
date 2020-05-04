@@ -34,9 +34,15 @@
         echo json_encode(update($pdo, $request['data']));
         exit;
 	}
+	
+	if (isset($request['search'])) 
+	{
+        echo json_encode(search($pdo, $request['data']));
+        exit;
+	}
 
 	if (isset($_POST))
-        updateStatus($pdo, $_POST);
+        	updateStatus($pdo, $_POST);
 
 	if (isset($request['user']))
 	{
