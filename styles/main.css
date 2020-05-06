@@ -364,6 +364,8 @@ p {
   cursor: pointer;
   background: rgba(0, 0, 0, 0.6);
   border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 0.5rem;
   padding: 5%;
   width: 100%;
   transition: all 0.2s;
@@ -415,6 +417,10 @@ p {
   background-color: transparent;
   transition: all 0.2s;
   cursor: pointer;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
 }
 .sideBar__links li:hover {
   color: #000000;
@@ -431,6 +437,10 @@ p {
   background: transparent;
   display: inline-block;
   padding-bottom: 5px;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
   width: 80%;
   border-right: 0;
   border-left: 0;
