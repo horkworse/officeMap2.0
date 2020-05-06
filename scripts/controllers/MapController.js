@@ -30,7 +30,7 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
     });
 
     searchField();
-    
+
     /* храним данные о юзере */
     $scope.user = JSON.parse(localStorage.getItem('user'));
 

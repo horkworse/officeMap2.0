@@ -22,7 +22,7 @@ MapApp.directive("fileread", ['$http', '$route' , function ($http, $route) {
             	.then((x) => {
                     user.image = x.data;
                     localStorage.user = JSON.stringify(user);
-                    $route.reload();
+                    // $route.reload();
                 });
             });
         },
