@@ -52,20 +52,20 @@
 		exit;
 	}
 
-	if ($_FILES) {
-		$path = $_SERVER['DOCUMENT_ROOT'] . "/images/users/";
-		$name = $_FILES['file']['name'];
-		$temp = $_FILES['file']['tmp_name'];
-		
-		if (move_uploaded_file($temp, $path . $name)) {
-
-			$data = [
-				'id' => $_POST['id'],
-				'image' => $name
-			];
-			updateImage($pdo, $data);
-			echo $data['image'];
-		}
+	if ($_FILES) 
+	{		
+		$data = 
+		[
+			'id' => $_POST['id'],
+			'image' => "avatar" . $_POST['id'] . ".png"
+		];
+		updateImage($pdo, $data);
+		echo $data['image'];
 		exit;
+	}
+	
+	if(isset($_POST["image"]))
+	{
+		file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/images/users/avatar'. $_POST['id'] .'.png', base64_decode(explode(",", explode(";", $_POST["image"])[1])[1]));
 	}
 ?>
