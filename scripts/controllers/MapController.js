@@ -49,11 +49,11 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
             data: { key: document.getElementById('search__input').value }
         }).then(x => 
             {
-                document.getElementsByClassName('list')[0].remove();
-                document.getElementById("search__field").insertAdjacentHTML("afterbegin", "<ul class='list'> </ul>");
+                document.getElementsByClassName('list')[0].innerHTML = "";
                 x.data.forEach(employee => {
-                    document.getElementsByClassName('list')[0].insertAdjacentHTML('beforeend', '<li><a href="#"> ' 
-                    + employee.surname + " " + employee.name + " - " + employee.post   + " - " + employee.status +'</a></li>');
+                    document.getElementsByClassName('list')[0].insertAdjacentHTML('beforeend', "<li><a href='#'> <font color='red'>" 
+                    + employee.surname + " " + employee.name + "</font> - <font color='green'>" 
+                    + employee.post   + "</font> - <font color='violet'>" + employee.status +"</font></a></li>");
                 });
             });
     };
