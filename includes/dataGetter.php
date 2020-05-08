@@ -41,7 +41,7 @@
         exit;
 	}
 
-	if (isset($_POST["status"]))
+	if (isset($_POST))
         	updateStatus($pdo, $_POST);
 
 	if (isset($request['user']))
