@@ -171,43 +171,14 @@
     }
 
 // Поиск
-    function search($pdo, $data) {
-
+    function search($pdo, $data) 
+    {
         $searchStatus = $pdo->prepare("
             SELECT id, name, surname, status, post
             FROM `employees`
-            WHERE `status` LIKE ?;
+            WHERE `status` LIKE ? OR `name` LIKE ? OR `surname` LIKE ? OR `post` LIKE ?;
         ;");
-        $searchStatus->execute([$data['key']."%"]);
-        $searchStatus = $searchStatus->fetchAll();
-
-        $searchName = $pdo->prepare("
-            SELECT id, name, surname, status, post
-            FROM `employees`
-            WHERE `name` LIKE ?;
-        ;");
-
-        $searchName->execute([$data['key']."%"]);
-        $searchName = $searchName->fetchAll();
-
-        $searchSurname = $pdo->prepare("
-            SELECT id, name, surname, status, post
-            FROM `employees`
-            WHERE `surname` LIKE ?;
-        ;");
-
-        $searchSurname->execute([$data['key']."%"]);
-        $searchSurname = $searchSurname->fetchAll();
-
-        $searchPost = $pdo->prepare("
-            SELECT id, name, surname, status, post
-            FROM `employees`
-            WHERE `post` LIKE ?;
-        ;");
-
-        $searchPost->execute([$data['key']."%"]);
-        $searchPost = $searchPost->fetchAll();
-
-        return array_merge($searchStatus,$searchName,$searchSurname,$searchPost);
+        $searchStatus->execute([$data['key']."%",$data['key']."%",$data['key']."%",$data['key']."%"]);
+        return $searchStatus->fetchAll();
     }
 ?>
