@@ -133,7 +133,11 @@
           $.ajax({
             url:"/includes/dataGetter.php",
             type: "POST",
-            data:{"image": response},
+            data:
+            {
+                "image": response,
+                "id": JSON.parse(localStorage.user).id
+            },
             success:function(data)
             {
               $('#uploadimageModal').hide(300, "linear");
