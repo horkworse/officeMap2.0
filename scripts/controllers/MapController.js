@@ -168,7 +168,17 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
             tooltip: {
                 enabled: true,
                 contentTemplate: (e, container) => {
-                    if(e.layer.name === "desks") {
+
+                    if ($scope.isDraggable ) {
+                        let map = $("#vector-map").dxVectorMap("instance");
+                        let currentDesk = desksData.dataSource.features[$scope.targetId];
+
+                        currentDesk.geometry.coordinates = $scope.coordinates;                        
+                        map.option("layers[2].dataSource", desksData.dataSource);
+                        map.render();
+                    }
+
+                    if (e.layer.name === "desks" && !$scope.isDraggable) {
                         let popUp = document.createElement('div');
                         popUp.className = 'popUp';
 
@@ -187,14 +197,19 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
                         status.className = 'status';
                         status.innerText = e.attribute('status');
 
-                        if(status.innerText == 'Не работает')
-                            status.style.color = '#19FF4F';
-                        else if (status.innerText == 'Не беспокоить')
-                            status.style.color = '#FF0D22';
-                        else if (status.innerText == 'Отошел')
-                            status.style.color = '#0122FF';
-                        else{
-                            status.style.color = '#FFC400';
+                        switch (status.innerText) {
+                            case 'Не работает':
+                                status.style.color = '#19FF4F';
+                                break;
+                            case 'Не беспокоить':
+                                status.style.color = '#FF0D22';
+                                break;
+                            case 'Отошел':
+                                status.style.color = '#0122FF';
+                                break;
+                            default:
+                                status.style.color = '#FFC400';
+                                break;
                         }
 
                         name.prepend(post);
@@ -205,12 +220,43 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
                     }
                 }
             },
-            onZoomFactorChanged: function (e) {    
+            onZoomFactorChanged: (e) => {
+                let map = e.component;
                 desksData.size = config.iconSize * e.zoomFactor;
-                e.component.getLayerByName('desks').getElements().forEach((x, i, arr) => {
+                map.getLayerByName('desks').getElements().forEach((x, i, arr) => {
                     x.applySettings(desksData);
                 });
-                e.component.render();
+                map.render();
+            },
+            onDrawn: (e) => {
+                e.element.on('mousemove', function(event) {
+                    let map = $("#vector-map").dxVectorMap("instance");
+                    let render = false;
+                    $scope.coordinates = map.convertToGeo(event.clientX, event.clientY );
+                })
+            },
+            onClick: (e) => {
+
+                if (e.target !== undefined && e.target.layer.name == 'desks') {
+                    let map = e.component;
+                    let id = e.target.index;
+                    let currentDesk = desksData.dataSource.features[id];
+
+                    if ($scope.isDraggable) {
+                        $scope.isDraggable = false;
+                        console.log("moving is end");
+                    }
+                    else {
+                        $scope.isDraggable = true;
+                        console.log("moving is start");
+                    }
+                    $scope.targetId = id;
+
+                    // currentDesk.geometry.coordinates[0] = +currentDesk.geometry.coordinates[0] + 10;
+
+                    map.option("layers[2].dataSource", desksData.dataSource);
+                    map.render();
+                }
             }
         };
     });
