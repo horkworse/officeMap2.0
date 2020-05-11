@@ -3,7 +3,7 @@
         <div class="header__inner">
             <div class="user">
                 <div class="user__avatar">
-                    <img tabindex="1" id="avatar" src="images/users/{{user.image}}" alt="">
+                    <img tabindex="1" id="avatar" src="images/users/avatar{{user.id}}.png" alt="">
                     <div class="user__nav">
                         <div class="nav__inner">
                             <div class="signedAs">
@@ -41,7 +41,7 @@
             </div>
             <div class="sideBar__user">
                 <div class="user__img">
-                    <img src="images/users/{{user.image}}" ng-model="user.image" alt="Аватарка">
+                    <img id="user__avatar" src="images/users/avatar{{user.id}}.png" ng-model="user.image" alt="Аватарка">
                     <div class="img__change">
                         <label for="uploadAvatar">
                             edit  <i class="fas fa-pen"></i>
@@ -143,6 +143,8 @@
               $('#uploadimageModal').hide(300, "linear");
               $('#fade').hide();
               $('#uploaded_image').html(data);
+              document.getElementById('avatar').src +="?" + new Date().getTime();
+              document.getElementById('user__avatar').src +="?" + new Date().getTime();
             }
           });
         })
