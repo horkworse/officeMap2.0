@@ -51,18 +51,6 @@
 		echo json_encode(signIn($pdo, $email, $password));
 		exit;
 	}
-
-	if ($_FILES) 
-	{		
-		$data = 
-		[
-			'id' => $_POST['id'],
-			'image' => "avatar" . $_POST['id'] . ".png"
-		];
-		updateImage($pdo, $data);
-		echo $data['image'];
-		exit;
-	}
 	
 	if(isset($_POST["image"]))
 	{
