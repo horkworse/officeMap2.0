@@ -1,7 +1,5 @@
 'use strict';
 
-
-
 let clipboard = new ClipboardJS('.clip');
 clipboard.on('success', (x) => alert('Скопирован ' + x.text));  
 
@@ -77,41 +75,30 @@ function slideFunction(sideBar, slideLinks) {
 }
 
 //Смена статуса, отправка на сервер, и смена иконки
-function changeStatus () 
-{
-    document.getElementById("statusSelect").addEventListener("change", function()
-    {
-        if(this.selectedIndex == 0)
-        {
-            document.getElementById('stat').setAttribute("class", "fas fa-fire");
-            document.getElementById('stat').style.color = '#FF0D22';
-        }
-        else if(this.selectedIndex == 1)
-        {
-            document.getElementById('stat').setAttribute("class", "fas fa-door-open");
-            document.getElementById('stat').style.color = '#0122FF';
-        }
-        else if(this.selectedIndex == 2)
-        {
-            document.getElementById('stat').setAttribute("class", "fas fa-briefcase");
-            document.getElementById('stat').style.color = '#FFC400';
-        }
-        else 
-        {
-            document.getElementById('stat').setAttribute("class", "fas fa-wine-bottle");
-            document.getElementById('stat').style.color = '#19FF4F';
-        }
-        var data = new FormData();  
-        data.append("status", this.options[this.selectedIndex].label);
-        data.append("id", JSON.parse(localStorage.user)["id"]);
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', "includes/dataGetter.php", true);
-        xhr.send(data);
-    });
+function changeStatus (status) {
+    let statusSelect = document.getElementById("statusSelect");
+    let statusList = document.getElementById('stat');
+
+    if (status.value == 0) {
+        statusList.setAttribute("class", "fas fa-fire");
+        statusList.style.color = '#FF0D22';
+    }
+    else if (status.value == 1) {
+        statusList.setAttribute("class", "fas fa-door-open");
+        statusList.style.color = '#0122FF';
+    }
+    else if (status.value == 2) {
+        statusList.setAttribute("class", "fas fa-briefcase");
+        statusList.style.color = '#FFC400';
+    }
+    else {
+        statusList.setAttribute("class", "fas fa-wine-bottle");
+        statusList.style.color = '#19FF4F';
+    }
 }
 
 //Открытие при фокусе поля с вариантыми ответа поиска
-function searchField (){
+function searchField () {
     let search = document.getElementById('search__input');
     let searchField = document.getElementById('search__field');
 
@@ -125,8 +112,8 @@ function searchField (){
 }
 
 //Закрытие элемента при клике вне его области
-function closeOutOfElement (element){
-    $(document).mouseup(function (e){ // событие клика по веб-документу
+function closeOutOfElement (element) {
+    $(document).mouseup(function (e) { // событие клика по веб-документу
         let div = $(element);
         if (!div.is(e.target) && div.has(e.target).length === 0) { // и не по его дочерним элементам
             div.slideUp(300, "linear");  // скрываем его

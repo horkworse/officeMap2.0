@@ -158,16 +158,16 @@
     }
 
     function updateStatus($pdo, $data) {
-        $updat = $pdo->prepare("
+        $update = $pdo->prepare("
             UPDATE `employees` SET 
             `status`= :status
             WHERE `id`= :id
         ;");
 
-        $updat->bindValue(':status', $data['status'], PDO::PARAM_STR);
-        $updat->bindValue(':id', $data['id'], PDO::PARAM_STR);
+        $update->bindValue(':status', $data['status'], PDO::PARAM_STR);
+        $update->bindValue(':id', $data['id'], PDO::PARAM_STR);
         
-        return $updat->execute();
+        return $update->execute();
     }
 
 // Поиск
@@ -181,5 +181,19 @@
         $searchStatus->execute([$data['key']."%",$data['key']."%",$data['key']."%",$data['key']."%"]);
 
         return $searchStatus->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function getStatuses($pdo) {
+        $statuses = $pdo->prepare("
+            SHOW COLUMNS
+            FROM `employees`
+            WHERE field = ?;
+        ;");
+
+        $statuses->execute(['status']);
+        $statuses = $statuses->fetch(PDO::FETCH_ASSOC);
+
+        $result = explode(',', str_replace('\'', '', substr($statuses['Type'], 5, count($statuses['Type']) - 2)));
+        return $result;
     }
 ?>

@@ -11,11 +11,8 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
 
     /*Сайд бар*/
     slide();
-    
-    /* Selct выбор иконки */
-    changeStatus();
 
-    /*Недо пасхалка, потом зафигачим норм пасхалку*/
+    /*Недопасхалка, потом зафигачим норм пасхалку*/
     onKonamiCode(function () {
         let fade = document.getElementById('fade');
         let pas = document.getElementById('pashalka');
@@ -31,60 +28,20 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
 
     searchField();
 
-    /* храним данные о юзере */
+    // $http.post('/includes/dataGetter.php', { getStatuses: true })
+    // .then(x => {
+    //     let data = x.data;
+
+    //     for (var i = 0; i < data.length; i++) {
+    //         $scope.statuses.push({
+    //             'name': data[i],
+    //             'value': i
+    //         })
+    //     }
+    // })
+
     $scope.user = JSON.parse(localStorage.getItem('user'));
 
-    /* выход юзера из учетки*/
-    $scope.logout = function () {
-        $http.post('/includes/dataGetter.php', {logout: true});
-        localStorage.removeItem('user');
-        $scope.user = null;
-        $location.path('/sign-in');
-    };
-    
-    /*$scope.search = function () {
-        $http.post('/includes/dataGetter.php', {
-            search: true,
-            data: { key: document.getElementById('search__input').value }
-        })
-        .then(x => {
-            let resultList = document.getElementsByClassName('list')[0];
-            resultList.innerHTML = "";
-
-            x.data.forEach(employee => {
-                let item = document.createElement("li");
-                let name = document.createElement("span");
-                let post = document.createElement("span");
-                let status = document.createElement("span");
-
-                name.innerText = employee.surname + " " + employee.name + " ";
-                post.innerText = employee.post + " ";
-                status.innerText = employee.status
-                
-                item.append(name, post, status);
-
-                item.addEventListener("click", function(e) {
-                    let desks = desksData.dataSource.features;
-
-                    for (var i = 0; i < desks.length; i++) {
-                        if (desks[i].properties.id == employee.id) {
-                            console.log(desks[i].properties.name);
-                        }
-                    }
-                    
-
-                    console.log(employee);
-
-                });
-                resultList.append(item);
-
-                // resultList.insertAdjacentHTML('beforeend', "<li><a href='#'> <font color='red'>" 
-                // + employee.surname + " " + employee.name + "</font> - <font color='green'>" 
-                // + employee.post   + "</font> - <font color='violet'>" + employee.status +"</font></a></li>");
-            });
-        });
-    };*/
-    
     $scope.statuses = [
         { name: "Не беспокоить", value: "0" },
         { name: "Отошел", value: "1" },
@@ -93,30 +50,34 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
     ];
 
     $scope.status = $scope.statuses.find(item => item.name == $scope.user.status);
-    /* пока пусть будет так, потом оптимизирую и сделаю так, как вы планировали */
+
+    changeStatus($scope.status);
+
+    /* выход юзера из учетки*/
+    $scope.logout = function () {
+        $http.post('/includes/dataGetter.php', {logout: true});
+        localStorage.removeItem('user');
+        $scope.user = null;
+        $location.path('/sign-in');
+    };
+
+    $scope.changeStatus = (status) => {
+        changeStatus(status);
+        $scope.user.status = status.name;
+        localStorage.user = JSON.stringify($scope.user)
+        
+        let userData = {
+            id: $scope.user.id,
+            status: status.name,
+        };
+
+        $http.post("includes/dataGetter.php", userData)
+        .then(x => {
+            console.log(x.data);
+        });
+    }
     
-    if($scope.status.name == 'Не работает')
-    {
-        document.getElementById('stat').setAttribute("class", "fas fa-wine-bottle");
-        document.getElementById('stat').style.color = '#19FF4F';
-    }
-    else if ($scope.status.name == 'Не беспокоить')
-    {
-        document.getElementById('stat').setAttribute("class", "fas fa-fire");
-        document.getElementById('stat').style.color = '#FF0D22';
-    }
-    else if ($scope.status.name == 'Отошел')
-    {
-        document.getElementById('stat').setAttribute("class", "fas fa-door-open");
-        document.getElementById('stat').style.color = '#0122FF';
-    }
-    else
-    {
-        document.getElementById('stat').setAttribute("class", "fas fa-briefcase");
-        document.getElementById('stat').style.color = '#FFC400';
-    }
-    
-    $scope.editForm = function(user) {
+    $scope.editForm = (user) => {
         let form = document.querySelectorAll('.inputs');
         if (form[0].style.cursor == 'text')
         {
@@ -128,10 +89,9 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
                     phone: user.phone
                 }
             })
-            .then(x => console.log(x.data));
-            localStorage.user = JSON.stringify($scope.user);
+            .then(() => localStorage.user = JSON.stringify($scope.user));
         }
-        form.forEach(function(item) {
+        form.forEach((item) => {
             if (item.id != 'email')
             {
                 item.toggleAttribute('readonly');
@@ -162,7 +122,7 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
             },
             dataSource: { features: x.data.rooms },
             name: "rooms"
-        }
+        };
 
         let desksData = {
             type: "marker",
@@ -171,14 +131,16 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
             size: config.iconSize,
             dataSource: { features: x.data.desks },
             name: "desks"
-        }
+        };
 
         let map = $("#vector-map").dxVectorMap("instance");
 
         $scope.search = function () {
+            let input = document.getElementById('search__input');
+
             $http.post('/includes/dataGetter.php', {
                 search: true,
-                data: { key: document.getElementById('search__input').value }
+                data: { key: input.value }
             })
             .then(x => {
                 let resultList = document.getElementsByClassName('list')[0];
@@ -189,12 +151,15 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
                     let name = document.createElement("span");
                     let post = document.createElement("span");
                     let status = document.createElement("span");
+                    let link = document.createElement("a");
 
                     name.innerText = employee.surname + " " + employee.name + " ";
                     post.innerText = employee.post + " ";
                     status.innerText = employee.status
                     
-                    item.append(name, post, status);
+                    link.append(name, post, status);
+                    link.href = "#";
+                    item.append(link);
 
                     item.addEventListener("click", function(e) {
                         let desks = desksData.dataSource.features;
@@ -204,6 +169,7 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
                                 
                                 let prevImagePath = desks[i].properties.url;
                                 desks[i].properties.url = '/images/selected.png';
+                                input.value = item.innerText;
 
                                 map.center(desks[i].geometry.coordinates);
                                 map.zoomFactor(4);
@@ -252,10 +218,9 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
                 contentTemplate: (e, container) => {
 
                     if ($scope.isDraggable ) {
-                        // let map = $("#vector-map").dxVectorMap("instance");
                         let currentDesk = desksData.dataSource.features[$scope.targetId];
+                        currentDesk.geometry.coordinates = $scope.coordinates;           
 
-                        currentDesk.geometry.coordinates = $scope.coordinates;                        
                         map.option("layers[2].dataSource", desksData.dataSource);
                         map.render();
                     }
@@ -303,7 +268,6 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
                 }
             },
             onZoomFactorChanged: (e) => {
-                // let map = e.component;
                 desksData.size = config.iconSize * e.zoomFactor;
                 map.getLayerByName('desks').getElements().forEach((x, i, arr) => {
                     x.applySettings(desksData);
@@ -312,7 +276,6 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
             },
             onDrawn: (e) => {
                 e.element.on('mousemove', function(event) {
-                    // let map = $("#vector-map").dxVectorMap("instance");
                     let render = false;
                     $scope.coordinates = map.convertToGeo(event.clientX, event.clientY );
                 })
@@ -320,7 +283,6 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
             onClick: (e) => {
 
                 if (e.target !== undefined && e.target.layer.name == 'desks') {
-                    // let map = e.component;
                     let id = e.target.index;
                     let currentDesk = desksData.dataSource.features[id];
 
@@ -333,9 +295,7 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
                         console.log("moving is start");
                     }
                     $scope.targetId = id;
-
-                    // currentDesk.geometry.coordinates[0] = +currentDesk.geometry.coordinates[0] + 10;
-
+                    
                     map.option("layers[2].dataSource", desksData.dataSource);
                     map.render();
                 }

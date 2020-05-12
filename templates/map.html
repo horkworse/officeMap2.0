@@ -71,7 +71,7 @@
                 <li>
                     <p>
                         <i id="stat" class="fas fa-question"></i>   
-                        <select id="statusSelect" ng-model="status" ng-options="s.name for s in statuses"></select>
+                        <select id="statusSelect" ng-model="status" ng-options="s.name for s in statuses" ng-change="changeStatus(status)"></select>
                     </p>
                 </li>
             </ul>                
