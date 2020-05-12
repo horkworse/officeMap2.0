@@ -171,14 +171,15 @@
     }
 
 // Поиск
-    function search($pdo, $data) 
-    {
+    function search($pdo, $data) {
         $searchStatus = $pdo->prepare("
             SELECT id, name, surname, status, post
             FROM `employees`
             WHERE `status` LIKE ? OR `name` LIKE ? OR `surname` LIKE ? OR `post` LIKE ?;
         ;");
+
         $searchStatus->execute([$data['key']."%",$data['key']."%",$data['key']."%",$data['key']."%"]);
-        return $searchStatus->fetchAll();
+
+        return $searchStatus->fetchAll(PDO::FETCH_ASSOC);
     }
 ?>
