@@ -71,10 +71,7 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
             status: status.name,
         };
 
-        $http.post("includes/dataGetter.php", userData)
-        .then(x => {
-            console.log(x.data);
-        });
+        $http.post("includes/dataGetter.php", userData);
     }
     
     $scope.editForm = (user) => {
@@ -132,6 +129,8 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
             dataSource: { features: x.data.desks },
             name: "desks"
         };
+
+        desksData.dataSource.features
 
         let map = $("#vector-map").dxVectorMap("instance");
 
@@ -283,18 +282,30 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
             onClick: (e) => {
 
                 if (e.target !== undefined && e.target.layer.name == 'desks') {
-                    let id = e.target.index;
-                    let currentDesk = desksData.dataSource.features[id];
+                    let index = e.target.index;
+                    let currentDesk = desksData.dataSource.features[index];
 
-                    if ($scope.isDraggable) {
+                    $scope.tempImage = $scope.tempImage === undefined ? currentDesk.properties.url : $scope.tempImage;
+
+                    if ($scope.isDraggable && currentDesk.properties.id == $scope.user.id) {
                         $scope.isDraggable = false;
+                        currentDesk.properties.url = $scope.tempImage;
+
+                        let dataDesk = {
+                            id: currentDesk.properties.id,
+                            x: currentDesk.geometry.coordinates[0],
+                            y: currentDesk.geometry.coordinates[1],
+                            updateDesk: true
+                        };
+                        $http.post("/includes/dataGetter.php", dataDesk);
                         console.log("moving is end");
                     }
-                    else {
+                    else if (!$scope.isDraggable && currentDesk.properties.id == $scope.user.id) {
                         $scope.isDraggable = true;
+                        currentDesk.properties.url = '/images/selected.png';
                         console.log("moving is start");
                     }
-                    $scope.targetId = id;
+                    $scope.targetId = index;
                     
                     map.option("layers[2].dataSource", desksData.dataSource);
                     map.render();

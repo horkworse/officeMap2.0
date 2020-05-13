@@ -28,7 +28,7 @@
 	}
 
 	if (isset($request['update']))  {
-        echo json_encode(update($pdo, $request['data']));
+        echo json_encode(updateUserData($pdo, $request['data']));
         exit;
 	}
 	
@@ -42,7 +42,17 @@
 			'id' => $request['id'],
 			'status' => $request['status']
 		];
-        updateStatus($pdo, $data);
+        echo updateStatus($pdo, $data);
+        exit;
+	}
+
+	if (isset($request["updateDesk"])) {
+		$data = [
+			'id' => $request['id'],
+			'x' => $request['x'],
+			'y' => $request['y']
+		];
+        echo updateCordinates($pdo, $data);
         exit;
 	}
 
@@ -60,5 +70,7 @@
 	
 	if(isset($_POST["image"])) {
 		file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/images/users/avatar'. $_POST['id'] .'.png', base64_decode(explode(",", explode(";", $_POST["image"])[1])[1]));
+		exit;
 	}
+	echo 'nothinck';
 ?>

@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Апр 29 2020 г., 18:31
--- Версия сервера: 5.7.20
+-- Время создания: Май 13 2020 г., 12:16
+-- Версия сервера: 5.7.20-log
 -- Версия PHP: 7.0.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -33,8 +33,8 @@ CREATE TABLE `desks` (
   `image` enum('angled.png','rectangled.png') DEFAULT NULL,
   `id_floor` int(8) UNSIGNED NOT NULL,
   `id_employee` int(8) UNSIGNED NOT NULL,
-  `x` int(10) NOT NULL DEFAULT '0',
-  `y` int(10) NOT NULL DEFAULT '0'
+  `x` float NOT NULL DEFAULT '0',
+  `y` float NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -42,9 +42,9 @@ CREATE TABLE `desks` (
 --
 
 INSERT INTO `desks` (`id`, `image`, `id_floor`, `id_employee`, `x`, `y`) VALUES
-(1, 'rectangled.png', 1, 1, 25, 20),
+(1, 'rectangled.png', 1, 1, 45, 20),
 (2, 'rectangled.png', 1, 2, 25, 0),
-(3, 'rectangled.png', 1, 3, 45, 20),
+(3, 'rectangled.png', 1, 3, 25, 20),
 (4, 'rectangled.png', 1, 4, 45, 0);
 
 -- --------------------------------------------------------
@@ -72,7 +72,7 @@ CREATE TABLE `employees` (
 --
 
 INSERT INTO `employees` (`id`, `surname`, `name`, `patronymic`, `post`, `image`, `password`, `email`, `phone`, `social`, `status`) VALUES
-(1, 'Зиновьев', 'Бронислав ', 'Анатольевич', 'Программист', 'avatar1.png', '$2y$10$qCzTSyZNZgbF0E307esJx.XMt6PLre2f2VbiNeaTsl.6b.kvovyK6', 'aojv@mail.ru', '7(495)870-78-641', '', 'Не работает'),
+(1, 'Зиновьев', 'Бронислав ', 'Анатольевич', 'Программист', 'avatar1.png', '$2y$10$qCzTSyZNZgbF0E307esJx.XMt6PLre2f2VbiNeaTsl.6b.kvovyK6', 'aojv@mail.ru', '7(495)870-78-641', '', 'Не беспокоить'),
 (2, 'Лазарев ', 'Дональд ', 'Викторович', 'Директор', 'avatar2.png', '$2y$10$qCzTSyZNZgbF0E307esJx.XMt6PLre2f2VbiNeaTsl.6b.kvovyK6', 'kggfpxw@yandex.ru', '7(495)933-15-61', '', 'Работает'),
 (3, 'Устинов ', 'Архип ', 'Владимирович', 'Аналитик', 'avatar3.png', '$2y$10$qCzTSyZNZgbF0E307esJx.XMt6PLre2f2VbiNeaTsl.6b.kvovyK6', 'oxxv@yandex.ru', '7(495)331-04-03', '', 'Работает'),
 (4, 'Панов ', 'Яков ', 'Лукьянович', 'Тестировщик', 'avatar4.png', '$2y$10$qCzTSyZNZgbF0E307esJx.XMt6PLre2f2VbiNeaTsl.6b.kvovyK6', 'f9jxjd14@gmail.com', '7(495)723-99-98', '', 'Работает'),

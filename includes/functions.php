@@ -96,6 +96,21 @@
         return $result;
     }
 
+    function updateCordinates($pdo, $data) {
+        $update = $pdo->prepare("
+            UPDATE `desks` SET 
+                `x` = :x,
+                `y` = :y
+            WHERE `id` = :id
+        ;");
+
+        $update->bindValue(':x', $data['x'], PDO::PARAM_STR);
+        $update->bindValue(':y', $data['y'], PDO::PARAM_STR);
+        $update->bindValue(':id', $data['id'], PDO::PARAM_STR);
+
+        return $update->execute();
+    }
+
 // авторизация
     function signIn($pdo, $email, $password) {
         $check = $pdo->prepare('
@@ -130,7 +145,7 @@
     }
 
 // обновление данных юзера
-    function update($pdo, $data) {
+    function updateUserData($pdo, $data) {
         $update = $pdo->prepare("
             UPDATE `employees` SET 
             `social`= :social, `phone`= :phone
@@ -160,7 +175,7 @@
     function updateStatus($pdo, $data) {
         $update = $pdo->prepare("
             UPDATE `employees` SET 
-            `status`= :status
+                `status`= :status
             WHERE `id`= :id
         ;");
 
