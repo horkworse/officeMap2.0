@@ -76,8 +76,9 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
     
     $scope.editForm = (user) => {
         let form = document.querySelectorAll('.inputs');
-        if (form[0].style.cursor == 'text')
+        if (form[1].style.cursor == 'text')
         {
+            console.log(1);
             $http.post('/includes/dataGetter.php', {
                 update: true,
                 data: {
@@ -130,7 +131,7 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
             name: "desks"
         };
 
-        desksData.dataSource.features
+        console.log(desksData.dataSource.features);
 
         let map = $("#vector-map").dxVectorMap("instance");
 
@@ -223,7 +224,7 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
                         map.option("layers[2].dataSource", desksData.dataSource);
                         map.render();
                     }
-
+// Говно снизу перенести в отдельную функцию (hork)
                     if (e.layer.name === "desks" && !$scope.isDraggable) {
                         let popUp = document.createElement('div');
                         popUp.className = 'popUp';
@@ -242,6 +243,14 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
                         let status = document.createElement('p');
                         status.className = 'status';
                         status.innerText = e.attribute('status');
+
+                        let phone = document.createElement('p');
+                        phone.className = ''; // тут
+                        phone.innerText = e.attribute('phone');
+
+                        let social = document.createElement('p');
+                        social.className = ''; // и тут
+                        social.innerText = e.attribute('social');
 
                         switch (status.innerText) {
                             case 'Не работает':
@@ -262,6 +271,8 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
                         name.append(status);
                         popUp.append(avatar);
                         popUp.append(name);
+                        popUp.append(phone);
+                        popUp.append(social);
                         container.append(popUp);
                     }
                 }

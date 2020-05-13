@@ -66,7 +66,7 @@
             return false;
 
         $desks = $pdo->prepare("
-            SELECT `employees`.`id` AS `id`, `x`, `y`, `desks`.`image` as `image`, CONCAT(`surname`, ' ', `name`, ' ', `patronymic`) AS `user`, `social`, `employees`.`image` as `avatar`, `post`, `employees`.`status`
+            SELECT `employees`.`id` AS `id`, `x`, `y`, `desks`.`image` as `image`, CONCAT(`surname`, ' ', `name`, ' ', `patronymic`) AS `user`, `social`, `employees`.`image` as `avatar`, `post`, `employees`.`status`, `employees`.`phone`
             FROM `employees` INNER JOIN
                 (`desks` INNER JOIN `floors` ON `desks`.`id_floor` = `floors`.`id`)
             ON `employees`.`id` = `desks`.`id_employee`
@@ -89,6 +89,7 @@
                     'avatar' => $row['avatar'],
                     'post' => $row['post'],
                     'social' => $row['social'],
+                    'phone' => $row['phone'],
                     'status' => $row['status']
                 ]
             ];
