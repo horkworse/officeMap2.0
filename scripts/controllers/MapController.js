@@ -76,7 +76,7 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
     
     $scope.editForm = (user) => {
         let form = document.querySelectorAll('.inputs');
-        if (form[0].style.cursor == 'text')
+        if (form[1].style.cursor == 'text')
         {
             $http.post('/includes/dataGetter.php', {
                 update: true,
