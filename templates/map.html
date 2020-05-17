@@ -22,6 +22,7 @@
                 <div class="search">
                     <form>
                         <input id="search__input" class="search__input" autocomplete="off" type="text" placeholder="Поиск...">
+                        <input type="hidden" id="userSearchId" value="" ng-model="userDeskId" ng-change="goTo(userDeskId)">
                         <button class="search__button" ng-click="search()" type="submit"></button>
                     </form> 
                     <div id="search__field">
@@ -70,7 +71,8 @@
                 </li>
                 <li>
                     <p>
-                        <i id="stat" class="fas fa-question"></i>   
+                        <i id="stat" class="fas fa-question"></i> 
+                        <!-- должно быть ng-model="user.status", todo-->
                         <select id="statusSelect" ng-model="status" ng-options="s.name for s in statuses" ng-change="changeStatus(status)"></select>
                     </p>
                 </li>

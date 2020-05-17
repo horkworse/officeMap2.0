@@ -39,7 +39,7 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
     //         })
     //     }
     // })
-
+    $scope.userDeskId = 0;
     $scope.user = JSON.parse(localStorage.getItem('user'));
 
     $scope.statuses = [
@@ -60,19 +60,6 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
         $scope.user = null;
         $location.path('/sign-in');
     };
-
-    $scope.changeStatus = (status) => {
-        changeStatus(status);
-        $scope.user.status = status.name;
-        localStorage.user = JSON.stringify($scope.user)
-        
-        let userData = {
-            id: $scope.user.id,
-            status: status.name,
-        };
-
-        $http.post("includes/dataGetter.php", userData);
-    }
     
     $scope.editForm = (user) => {
         let form = document.querySelectorAll('.inputs');
@@ -135,65 +122,6 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
 
         let map = $("#vector-map").dxVectorMap("instance");
 
-        $scope.search = function () {
-            let input = document.getElementById('search__input');
-
-            $http.post('/includes/dataGetter.php', {
-                search: true,
-                data: { key: input.value }
-            })
-            .then(x => {
-                let resultList = document.getElementsByClassName('list')[0];
-                resultList.innerHTML = "";
-
-                x.data.forEach(employee => {
-                    let item = document.createElement("li");
-                    let name = document.createElement("span");
-                    let post = document.createElement("span");
-                    let status = document.createElement("span");
-                    let link = document.createElement("a");
-
-                    name.innerText = employee.surname + " " + employee.name + " ";
-                    post.innerText = employee.post + " ";
-                    status.innerText = employee.status
-                    
-                    link.append(name, post, status);
-                    link.href = "#";
-                    item.append(link);
-
-                    item.addEventListener("click", function(e) {
-                        let desks = desksData.dataSource.features;
-
-                        for (let i = 0; i < desks.length; i++) {
-                            if (desks[i].properties.id == employee.id) {
-                                
-                                let prevImagePath = desks[i].properties.url;
-                                desks[i].properties.url = '/images/selected.png';
-                                input.value = item.innerText;
-
-                                map.center(desks[i].geometry.coordinates);
-                                map.zoomFactor(4);
-                                map.option("layers[2].dataSource", desksData.dataSource);
-                                map.render();
-
-                                setTimeout(() => {
-                                    desks[i].properties.url = prevImagePath;
-                                    map.option("layers[2].dataSource", desksData.dataSource);
-                                    map.render();
-                                }, 3000)
-                                break;
-                            }
-                        }
-                    });
-                    resultList.append(item);
-
-                    // resultList.insertAdjacentHTML('beforeend', "<li><a href='#'> <font color='red'>" 
-                    // + employee.surname + " " + employee.name + "</font> - <font color='green'>" 
-                    // + employee.post   + "</font> - <font color='violet'>" + employee.status +"</font></a></li>");
-                });
-            });
-        };
-
         /* подгрузка карты */
         $scope.vectorMapOptions = {
             controlBar: {
@@ -211,6 +139,10 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
             ],
             loadingIndicator: {
                 show: true
+            },
+            onInitialized : (e) => {
+
+
             },
             /* вывод popUp при наведении выши на стол */
             tooltip: {
@@ -289,6 +221,96 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
                     let render = false;
                     $scope.coordinates = map.convertToGeo(event.clientX, event.clientY );
                 })
+
+                $scope.changeStatus = (status) => {
+                    
+                    changeStatus(status);
+                    $scope.user.status = status.name;
+                    localStorage.user = JSON.stringify($scope.user)
+
+                    let userData = {
+                        id: $scope.user.id,
+                        status: status.name,
+                    };
+
+                    $http.post("includes/dataGetter.php", userData);
+                    let desks = desksData.dataSource.features;
+
+                    for (let i = 0; i < desks.length; i++) {
+                        if (desks[i].properties.id == $scope.user.id) {
+                            desks[i].properties.status = status.name;
+                            map.option("layers[2].dataSource", desksData.dataSource);
+                            map.render();
+
+                            break;
+                        }
+                    }
+                }
+
+                $scope.search = function () {
+                    let input = document.getElementById('search__input');
+
+                    $http.post('/includes/dataGetter.php', {
+                        search: true,
+                        data: { key: input.value }
+                    })
+                    .then(x => {
+                        let resultList = document.getElementsByClassName('list')[0];
+                        resultList.innerHTML = "";
+
+                        x.data.forEach(employee => {
+                            let item = document.createElement("li");
+                            let name = document.createElement("span");
+                            let post = document.createElement("span");
+                            let status = document.createElement("span");
+                            let link = document.createElement("a");
+
+                            name.innerText = employee.surname + " " + employee.name + " ";
+                            post.innerText = employee.post + " ";
+                            status.innerText = employee.status
+                            
+                            link.append(name, post, status);
+                            link.href = "#";
+                            item.append(link);
+
+                            // console.log(employee.id);
+                            // console.log(item);
+
+                            resultList.append(item);
+
+                            item.addEventListener("click", function(e) {
+                                let desks = desksData.dataSource.features;
+                                $scope.userDeskId = employee.id;
+                                console.log(employee.id);
+
+                                // for (let i = 0; i < desks.length; i++) {
+                                //     if (desks[i].properties.id == employee.id) {
+                                        
+                                //         let prevImagePath = desks[i].properties.url;
+                                //         desks[i].properties.url = '/images/selected.png';
+                                //         input.value = item.innerText;
+
+                                //         map.center(desks[i].geometry.coordinates);
+                                //         map.zoomFactor(4);
+                                //         map.option("layers[2].dataSource", desksData.dataSource);
+                                //         map.render();
+
+                                //         setTimeout(() => {
+                                //             desks[i].properties.url = prevImagePath;
+                                //             map.option("layers[2].dataSource", desksData.dataSource);
+                                //             map.render();
+                                //         }, 3000)
+                                //         break;
+                                //     }
+                                // }
+                            });
+                        });
+                    });
+                };
+
+                $scope.goTo = (userDeskId) => {
+                    
+                }
             },
             onClick: (e) => {
 
