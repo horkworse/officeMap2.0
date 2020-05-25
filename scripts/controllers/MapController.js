@@ -26,6 +26,8 @@ MapApp.controller('MapController', function MapController($scope, $http, $locati
         }); 
     });
 
+    aPanel();
+
     searchField();
 
     // $http.post('/includes/dataGetter.php', { getStatuses: true })
