@@ -1,2 +1,1 @@
-# OfficeMap
-Interactive map of an office
+# officeMap2.0
